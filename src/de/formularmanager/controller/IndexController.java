@@ -1,7 +1,6 @@
 package de.formularmanager.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,31 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.formularmanager.databaseoperations.ListForms;
-
-@WebServlet("/ListController")
-public class ListController extends HttpServlet {
+@WebServlet("/IndexController")
+public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public ListController() {
+	public IndexController() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		ListForms Forms = new ListForms();
-		
-		try {
-			List<String> formsList = Forms.getFormsList();
-			System.out.println(formsList);			
-			request.setAttribute("formsList", formsList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("pageTitle", "Übersicht");
-		request.setAttribute("view", "list");
+		request.setAttribute("pageTitle", "Admin Panel");
+		request.setAttribute("view", "index");
 		
 		getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);
 

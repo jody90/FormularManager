@@ -1,9 +1,3 @@
-<%@ tag language="java" pageEncoding="UTF-8"%>
-<%@ attribute name="header" fragment="true" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<div class="header">
-	<h1>
-		Header
-	</h1>
-	<jsp:invoke fragment="header"/>
-</div>
+<h1 style="background-color: #ddd; display:block; padding: 20px;">${head}</h1>

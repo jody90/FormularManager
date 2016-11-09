@@ -4,12 +4,41 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<servlet>
+		<servlet-name>index</servlet-name>
+		<servlet-class>de.formularmanager.controller.IndexController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>edit</servlet-name>
-		<servlet-class>de.formularmanager.controller.EditController
-		</servlet-class>
+		<servlet-class>de.formularmanager.controller.EditController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>edit</servlet-name>
 		<url-pattern>/edit</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>list</servlet-name>
+		<servlet-class>de.formularmanager.controller.ListController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>list</servlet-name>
+		<url-pattern>/list</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>error</servlet-name>
+		<servlet-class>de.formularmanager.controller.ErrorController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>error</servlet-name>
+		<url-pattern>/error</url-pattern>
+	</servlet-mapping>
+	
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
 </web-app>

@@ -23,6 +23,7 @@
 .navi-item-text {
     top: 50%;
     position: relative;
+    display: block;
     transform: translateY(-50%);
 }
 

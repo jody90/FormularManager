@@ -24,32 +24,35 @@ public class EditController extends HttpServlet {
 
 		FormEdit form = new FormEdit();
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-
-		String pageId = "false";
+		response.getWriter().append("Served at: ").append(request.getContextPath());		
+		
 		String action = request.getParameter("action");
 		
-		if ( request.getParameter("page_id") != null && !request.getParameter("page_id").isEmpty()) {
-			pageId = request.getParameter("page_id");			
-		}
-		
+		String pageId = request.getParameter("page_id") != null ? request.getParameter("page_id") : "false";			
+		String state = request.getParameter("state") != null ? request.getParameter("state") : "DRAFT";//		if ( request.getParameter("page_id") != null && !request.getParameter("page_id").isEmpty()) {
+
 		Map<String, String> formData = new HashMap<String, String>();
 		formData.put("pageId", pageId);
+		formData.put("state", state);
 		formData.put("formTitle", request.getParameter("form_title"));
 		formData.put("formContent", request.getParameter("form_content"));
+		formData.put("formType", request.getParameter("form_type"));
 		formData.put("validFrom", request.getParameter("valid_from"));
 		formData.put("validTo", request.getParameter("valid_to"));
 		
 		if ("save".equals(action)) {
+			
 			System.out.println("In db speichern");
 			try {
 				boolean writeDatabaseResponse = form.writeDatabaseForm(formData);
 				
 				if (writeDatabaseResponse) {
-					response.sendRedirect("list.jsp");
+					response.sendRedirect("/FormularManager/list");
+					return;
 				}
 				else {					
-					response.sendRedirect("templates/error.jsp");
+					response.sendRedirect("/FormularManager/error");
+					return;
 				}
 				
 			} catch (Exception e) {
@@ -57,7 +60,9 @@ public class EditController extends HttpServlet {
 			}
 		}
 		else {
-			System.out.println("nicht in db speichern");
+			request.setAttribute("pageTitle", "Formular bearbeiten");
+			request.setAttribute("view", "edit");
+			getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);
 		}
 		
 	}

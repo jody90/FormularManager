@@ -21,14 +21,12 @@ public class FormEdit {
 			
 			connect = DriverManager.getConnection("jdbc:mysql://localhost/formular_manager?" + "user=root&password=root");
 
-			preparedStatement = connect.prepareStatement("insert into  formular_manager.form values (default, ?, ?, ?, ?, default, default)");
+			preparedStatement = connect.prepareStatement("insert into  formular_manager.forms values (default, ?, ?, default, default)");
 			
 			System.out.println(formData.get("formContent"));
 			
-			preparedStatement.setString(1, formData.get("formTitle"));
-			preparedStatement.setString(2, formData.get("formContent"));
-			preparedStatement.setString(3, formData.get("validFrom"));
-			preparedStatement.setString(4, formData.get("validTo"));
+			preparedStatement.setString(1, formData.get("formType"));
+			preparedStatement.setString(2, formData.get("state"));
 			preparedStatement.executeUpdate();
 			writeDatabaseResponse = true;
 		}
