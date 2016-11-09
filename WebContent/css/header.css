@@ -1,0 +1,11 @@
+.header {
+    min-height: 25px;
+    background: #ccc;
+}
+
+.header-logo {
+    background: #ddd;
+    min-height: 25px;
+    height: 70px;
+    line-height: 70px;
+}

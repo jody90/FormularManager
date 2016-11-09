@@ -1,0 +1,31 @@
+.navi-item-box {
+     background: #2f71d2;
+     padding: 5px;
+     width: 300px;
+     height: 300px;
+     margin-top: 10px;
+     font-weight: bold;
+     font-size: 3em;
+     text-align: center;
+     text-decoration: none;
+     cursor: pointer;
+     color: #fff;
+     transition: all .3s ease;
+     margin-top: 150px;
+ }
+
+.navi-item-box:hover {
+    box-shadow: 3px 3px 6px #6c6c6c;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navi-item-text {
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+}
+
+.navi-item-icon {
+    font-size: 2em;
+}
