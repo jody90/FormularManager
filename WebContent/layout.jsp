@@ -9,7 +9,7 @@
 	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/helperClasses.css" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/css/stylse.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 	<link href="css/header.css" rel="stylesheet">
 	<link href="css/menu.css" rel="stylesheet">
 	<link href="css/responsiveTables.css" rel="stylesheet">

@@ -1,8 +1,7 @@
 package de.formularmanager.controller;
 
 import java.io.IOException;
-import java.util.List;
-
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.formularmanager.databaseoperations.ListForms;
+import de.formularmanager.storage.FormsListStorage;
 
 @WebServlet("/ListController")
 public class ListController extends HttpServlet {
@@ -25,8 +25,7 @@ public class ListController extends HttpServlet {
 		ListForms Forms = new ListForms();
 		
 		try {
-			List<String> formsList = Forms.getFormsList();
-			System.out.println(formsList);			
+			ArrayList<FormsListStorage> formsList = Forms.getFormsList();		
 			request.setAttribute("formsList", formsList);
 		} catch (Exception e) {
 			e.printStackTrace();
