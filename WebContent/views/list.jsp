@@ -19,6 +19,9 @@
 		<th>
 			Geändert am
 		</th>
+		<th>
+			Optionen			
+		</th>
 	</tr>
 	<c:forEach items="${formsList}" var="item">
 		<tr>
@@ -36,6 +39,11 @@
 		    </td>
    			<td>
 		    	${item.getModifiedAt()}
+		    </td>
+    		<td>
+		    	<a href="${pageContext.request.contextPath}/edit?action=edit&contry=DE&form_id=${item.getId()}">
+		    		<span class="glyphicon glyphicon-edit icon-md" aria-hidden="true"></span>
+		    	</a>
 		    </td>
 		</tr>
 	</c:forEach>

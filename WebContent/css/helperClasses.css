@@ -43,5 +43,36 @@
     -webkit-align-items: center;
     -webkit-box-align: center;
     align-items: center;
+}
 
+.font-xs {
+	font-size: 8px;
+}
+
+.font-sm {
+	font-size: 10px;
+}
+
+.font-md {
+	font-size: 14px;
+}
+
+.font-lg {
+	font-size: 16px;	
+}
+
+.icon-xs {
+	font-size: 10px;
+}
+
+.icon-sm {
+	font-size: 14px;
+}
+
+.icon-md {
+	font-size: 18px;
+}
+
+.icon-lg {
+	font-size: 26px;	
 }

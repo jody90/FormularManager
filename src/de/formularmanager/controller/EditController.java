@@ -1,7 +1,6 @@
 package de.formularmanager.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,67 +23,100 @@ public class EditController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		FormEdit form = new FormEdit();
-		
 		response.getWriter().append("Served at: ").append(request.getContextPath());		
 		
-		String action = request.getParameter("action");
+		FormEdit form = new FormEdit();
 		
-		String pageId = request.getParameter("page_id") != null ? request.getParameter("page_id") : "false";			
-//		String state = request.getParameter("state") != null ? request.getParameter("state") : "DRAFT";
-		String country = request.getParameter("country");
+		String action = request.getParameter("action") != null ? request.getParameter("action") : "new";
+		String formId = request.getParameter("form_id") != null ? request.getParameter("form_id") : "false";			
+		String country = request.getParameter("country") != null ? request.getParameter("country") : "DE";
 		
+		Enumeration<String> paramNames = request.getParameterNames();
 		
-		if ("save".equals(action)) {		
-			Enumeration paramNames = request.getParameterNames();
+		Map<String, String> globalData = new HashMap<String, String>();
+		Map<String, String> metaData = new HashMap<String, String>();
+		
+		request.setAttribute("pageTitle", "Formular bearbeiten");
+		request.setAttribute("formId", formId);
+		request.setAttribute("view", "edit");
+		
+		globalData.put("formId", formId);
+	      
+		while (paramNames.hasMoreElements()) {
 			
-			Map<String, String> globalData = new HashMap<String, String>();
-			Map<String, String> metaData = new HashMap<String, String>();
-			
-			globalData.put("pageId", pageId);
-		      
-			while (paramNames.hasMoreElements()) {
-				
-				// Parameter Keys in String Array schreiben
-				String paramName = (String) paramNames.nextElement();
+			// Parameter Keys in String Array schreiben
+			String paramName = (String) paramNames.nextElement();
 
-				if (paramName.endsWith("_countryPlaceholder")) {
-					String newParamName = paramName.replace("countryPlaceholder", country);
-					metaData.put(newParamName, request.getParameter(paramName));					
-				}
-				else {
-					globalData.put(paramName, request.getParameter(paramName));
-				}
+			if (paramName.endsWith("_countryPlaceholder")) {
+				String newParamName = paramName.replace("countryPlaceholder", country);
+				metaData.put(newParamName, request.getParameter(paramName));					
 			}
-			
-//			for (Map.Entry<String, String> entry : metaData.entrySet()) {
-//			    System.out.println(entry.getKey() + "/" + entry.getValue());
-//			}
-			
-			try {
-//				boolean writeDatabaseResponse = form.writeDatabaseForm(formData);
-				boolean writeDatabaseResponse = form.writeDatabaseForm(globalData, metaData);
-//				boolean writeDatabaseResponse = true;
-				
-				if (writeDatabaseResponse) {
-					response.sendRedirect("/FormularManager/list");
-					return;
-				}
-				else {					
-					response.sendRedirect("/FormularManager/error");
-					return;
-				}
-				
-			} catch (Exception e) {
-				e.printStackTrace();
+			else {
+				globalData.put(paramName, request.getParameter(paramName));
 			}
-		}
-		else {
-			request.setAttribute("pageTitle", "Formular bearbeiten");
-			request.setAttribute("view", "edit");
-			getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);
 		}
 		
+		switch (action) {
+			case "save" :
+				try {
+					boolean writeDatabaseResponse = false;
+					if (formId == "false") {						
+						writeDatabaseResponse = form.insertForm(globalData, metaData);
+					}
+					else {
+						writeDatabaseResponse = form.updateForm(globalData, metaData);
+					}
+					
+					
+					if (writeDatabaseResponse) {
+						response.sendRedirect("/FormularManager/list");
+						return;
+					}
+					else {					
+						response.sendRedirect("/FormularManager/error");
+						return;
+					}					
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			break;
+			case "edit" :
+				Map<String, String> formData = null;
+				try {
+					formData = form.getFormData(formId);
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				request.setAttribute("country", country);
+				request.setAttribute("formData", formData);
+				getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);
+
+				
+//				try {
+//					boolean writeDatabaseResponse = form.writeDatabaseForm(globalData, metaData);
+//					
+//					if (writeDatabaseResponse) {
+//						response.sendRedirect("/FormularManager/list");
+//						return;
+//					}
+//					else {					
+//						response.sendRedirect("/FormularManager/error");
+//						return;
+//					}					
+//				} 
+//				catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				ArrayList<FormEditData> = form.getFormEditData(String formId, String country);
+				
+			break;
+			case "new" :
+				getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);
+			break;
+		}		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

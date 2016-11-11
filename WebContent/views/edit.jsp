@@ -1,4 +1,18 @@
+<h1>
+	${formData["form_title_DE"]}
+	<hr>
+	${country}
+	<hr>
+	${formData}
+	<hr>
+	${formData["form_content_DE"]}
+	<hr>
+	Hallo
+</h1>
+
 <form action="EditController" method="post">
+
+	<input type="hidden" name="form_id" value="${formId}">
 
 	<label for="formType">Formular Type</label>
 	<select name="formType">
@@ -16,7 +30,7 @@
 	<br>
 
 	<label for="form_title">Formular Titel</label>
-	<input type="text" name="form_title_countryPlaceholder"><br>
+	<input type="text" name="form_title_countryPlaceholder" value="${formData.get('page_title_DE')}"><br>
 	<br>
 
 	<label for="validFrom">Gültig von:</label>

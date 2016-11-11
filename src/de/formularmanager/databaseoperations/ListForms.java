@@ -46,9 +46,7 @@ public class ListForms {
 				+ "FROM formular_manager.forms_meta "
 				+ "WHERE formular_manager.forms_meta.meta_name LIKE 'form_title_%' "
 				+ "AND formular_manager.forms_meta.form_id = " + id + "";
-				
-				System.out.println(sql);
-				
+
 				preparedStatement = connect.prepareStatement(sql);				
 				ResultSet rsMeta = preparedStatement.executeQuery();
 				if (rsMeta.next()) {					
