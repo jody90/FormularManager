@@ -22,7 +22,14 @@ public class ListForms {
 			
 			connect = DriverManager.getConnection("jdbc:mysql://localhost/formular_manager?user=root&password=root");
 
-			preparedStatement = connect.prepareStatement("SELECT * FROM formular_manager.forms");
+			String sql = "SELECT "
+					+ "forms.id, "
+					+ "forms.type,"
+					+ "forms.created_at, "
+					+ "forms.modified_at "
+					+ "FROM formular_manager.forms";
+			
+			preparedStatement = connect.prepareStatement(sql);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			
@@ -33,8 +40,22 @@ public class ListForms {
 				String type = rs.getString("type");
 				String createdAt = rs.getString("created_at");
 				String modifiedAt = rs.getString("modified_at");
+				String formTitle = "kein Titel";
 				
-				results.add(new FormsListStorage(id, type, createdAt, modifiedAt));
+				sql = "SELECT meta_value "
+				+ "FROM formular_manager.forms_meta "
+				+ "WHERE formular_manager.forms_meta.meta_name LIKE 'form_title_%' "
+				+ "AND formular_manager.forms_meta.form_id = " + id + "";
+				
+				System.out.println(sql);
+				
+				preparedStatement = connect.prepareStatement(sql);				
+				ResultSet rsMeta = preparedStatement.executeQuery();
+				if (rsMeta.next()) {					
+					formTitle = !rsMeta.getString("meta_value").isEmpty() ? rsMeta.getString("meta_value") : "kein Titel";
+				}
+				
+				results.add(new FormsListStorage(id, type, createdAt, modifiedAt, formTitle));
 			}
 			return results;
 		}

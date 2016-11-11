@@ -8,6 +8,9 @@
 			ID
 		</th>
 		<th>
+			Titel
+		</th>
+		<th>
 			Typ
 		</th>
 		<th>
@@ -21,6 +24,9 @@
 		<tr>
 			<td>
 		    	${item.getId()}
+		    </td>
+  			<td>
+		    	${item.getFormTitle()}
 		    </td>
 			<td>
 		    	${item.getType()}

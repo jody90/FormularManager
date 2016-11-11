@@ -2,11 +2,12 @@ package de.formularmanager.storage;
 
 public class FormsListStorage {
 	
-	public FormsListStorage(String id, String type, String created_at, String modified_at) {
+	public FormsListStorage(String id, String type, String created_at, String modified_at, String form_title) {
 		this.setId(id);
 		this.setType(type);
 		this.setCreatedAt(created_at);
 		this.setModifiedAt(modified_at);
+		this.setFormTitle(form_title);
 	}
 	
 	private String id;
@@ -17,6 +18,16 @@ public class FormsListStorage {
 
 	private String modifiedAt;
 	
+	private String formTitle;
+	
+	public String getFormTitle() {
+		return formTitle;
+	}
+
+	public void setFormTitle(String formTitle) {
+		this.formTitle = formTitle;
+	}
+
 	public String getId() {
 		return id;
 	}
