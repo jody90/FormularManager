@@ -98,46 +98,24 @@ public class FormEdit {
 		Map<String, String> formData = new HashMap<String, String>();
 		Connection connect = this.connect();
 
-//		String sql = "SELECT "
-//				+ "forms.id, "
-//				+ "forms.type, "
-//				+ "forms.created_at, "
-//				+ "forms.modified_at, "
-//				+ "forms_meta.meta_name, "
-//				+ "forms_meta.meta_value "
-//				+ "FROM formular_manager.forms "
-//				+ "RIGHT JOIN forms_meta "
-//				+ "ON forms.id = forms_meta.form_id "
-//				+ "WHERE forms.id = " + formId + "";
-//		
-		String sql = "SELECT * "
-				+ "FROM formular_manager.forms_meta "
-				+ "WHERE forms_meta.form_id = " + formId + "";
+		String sql = "SELECT "
+				+ "forms.id, "
+				+ "forms.type, "
+				+ "forms.created_at, "
+				+ "forms.modified_at, "
+				+ "forms_meta.meta_name, "
+				+ "forms_meta.meta_value "
+				+ "FROM formular_manager.forms "
+				+ "RIGHT JOIN forms_meta "
+				+ "ON forms.id = forms_meta.form_id "
+				+ "WHERE forms.id = " + formId + "";
 		
-		preparedStatement = connect.prepareStatement(sql);				
-		ResultSet rsCount = preparedStatement.executeQuery();
-		
-		int i = 1;
-		int count = 0;
-		System.out.print(rsCount.getRow());
-		if (rsCount.next()) {
-			System.out.println(rsCount.getString(i));
-			i++;
-		}
-		
-//		sql = "SELECT meta_name, meta_value "
-//				+ "FROM formular_manager.forms_meta "
-//				+ "WHERE forms_meta.form_id = " + formId + " "
-//				+ "OFFSET ";
-//		
 		preparedStatement = connect.prepareStatement(sql);				
 		ResultSet rsMeta = preparedStatement.executeQuery();
 		
-		if (rsMeta.next())
-//			formData.put(rsMeta.getString("meta_name"), rsMeta.getString("meta_value"));
-		
-		System.out.println(i);
-		System.out.println(count);
+		if (rsMeta.next()) {
+			formData.put(rsMeta.getString("meta_name"), rsMeta.getString("meta_value"));
+		}
 		
 		return formData;
 		
