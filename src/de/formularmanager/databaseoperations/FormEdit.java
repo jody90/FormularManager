@@ -102,19 +102,43 @@ public class FormEdit {
 				+ "forms.id, "
 				+ "forms.type, "
 				+ "forms.created_at, "
-				+ "forms.modified_at, "
-				+ "forms_meta.meta_name, "
-				+ "forms_meta.meta_value "
+				+ "forms.modified_at "
 				+ "FROM formular_manager.forms "
-				+ "RIGHT JOIN forms_meta "
-				+ "ON forms.id = forms_meta.form_id "
 				+ "WHERE forms.id = " + formId + "";
 		
 		preparedStatement = connect.prepareStatement(sql);				
-		ResultSet rsMeta = preparedStatement.executeQuery();
+		ResultSet rsData = preparedStatement.executeQuery();
 		
-		if (rsMeta.next()) {
-			formData.put(rsMeta.getString("meta_name"), rsMeta.getString("meta_value"));
+		if (rsData.next()) {
+			formData.put("formId", rsData.getString("id"));
+			formData.put("formType", rsData.getString("type"));
+			formData.put("createdAt", rsData.getString("created_at"));
+			formData.put("modifiedAt", rsData.getString("modified_at"));
+		}
+		
+		sql = "SELECT COUNT(*)"
+				+ "FROM forms_meta "
+				+ "WHERE forms_meta.form_id = " + formId + "";
+		
+		preparedStatement = connect.prepareStatement(sql);				
+		ResultSet rsCount = preparedStatement.executeQuery();
+		int count = 0;
+		
+		if (rsCount.next()) {
+			count = rsCount.getInt(1);
+		}
+		
+		for (int i = 1; i <= count; i++) {		
+			sql = "SELECT meta_name, meta_value "
+					+ "FROM forms_meta "
+					+ "WHERE forms_meta.form_id = " + formId + " "
+					+ "LIMIT 1 OFFSET " + (i-1) + "";
+			
+			preparedStatement = connect.prepareStatement(sql);				
+			ResultSet rsMeta = preparedStatement.executeQuery();
+			if (rsMeta.next()) {
+				formData.put(rsMeta.getString("meta_name"), rsMeta.getString("meta_value"));
+			}
 		}
 		
 		return formData;
