@@ -27,7 +27,9 @@
 		    	${item.getId()}
 		    </td>
   			<td class="align-middle">
-		    	${item.getFormTitle()}
+  				<a href="${pageContext.request.contextPath}/public?country=DE&form_id=${item.getId()}">
+			    	${item.getFormTitle()}
+  				</a>
 		    </td>
 			<td class="align-middle">
 		    	${item.getType()}
@@ -39,10 +41,10 @@
 		    	${item.getModifiedAt()}
 		    </td>
     		<td class="align-middle">
-		    	<a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=edit&contry=DE&form_id=${item.getId()}">
+		    	<a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=edit&country=DE&form_id=${item.getId()}">
 		    		<span class="glyphicon glyphicon-edit symbol-mad" aria-hidden="true"></span>
 		    	</a>
-  			    <a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=delete&contry=DE&form_id=${item.getId()}">
+  			    <a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=delete&country=DE&form_id=${item.getId()}">
 		    		<span class="glyphicon glyphicon-trash symbol-mad" aria-hidden="true"></span>
 		    	</a>
 		    </td>

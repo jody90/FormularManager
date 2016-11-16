@@ -102,7 +102,6 @@ public class EditController extends HttpServlet {
 					response.sendRedirect("/FormularManager/list");
 					return;
 				}
-				
 			break;
 			case "delete" :
 				try {

@@ -19,6 +19,7 @@
 		<servlet-name>edit</servlet-name>
 		<url-pattern>/edit</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>list</servlet-name>
 		<servlet-class>de.formularmanager.controller.ListController</servlet-class>
@@ -26,6 +27,15 @@
 	<servlet-mapping>
 		<servlet-name>list</servlet-name>
 		<url-pattern>/list</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>public</servlet-name>
+		<servlet-class>de.formularmanager.controller.PublicController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>public</servlet-name>
+		<url-pattern>/public</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
