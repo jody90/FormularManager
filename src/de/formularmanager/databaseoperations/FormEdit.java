@@ -95,45 +95,45 @@ public class FormEdit {
 		String sql = "SELECT * "
 				+ "FROM formular_manager.forms "
 				+ "WHERE forms.id = " + formId + " "
-				+ "AND delete_status != 1";
+				+ "AND forms.delete_status != 1";
+		
 		
 		preparedStatement = connect.prepareStatement(sql);				
 		ResultSet rsData = preparedStatement.executeQuery();
 		
+		// Den rest nur ausfuehren wenn beim ersten Request ein Response kam
 		if (rsData.next()) {
 			formData.put("formId", rsData.getString("id"));
 			formData.put("formType", rsData.getString("type"));
 			formData.put("createdAt", rsData.getString("created_at"));
 			formData.put("modifiedAt", rsData.getString("modified_at"));
-		}
 		
-		sql = "SELECT COUNT(*)"
-				+ "FROM forms_meta "
-				+ "WHERE forms_meta.form_id = " + formId + "";
-		
-		preparedStatement = connect.prepareStatement(sql);				
-		ResultSet rsCount = preparedStatement.executeQuery();
-		int count = 0;
-		
-		if (rsCount.next()) {
-			count = rsCount.getInt(1);
-		}
-		
-		for (int i = 1; i <= count; i++) {		
-			sql = "SELECT meta_name, meta_value "
+			sql = "SELECT COUNT(*)"
 					+ "FROM forms_meta "
-					+ "WHERE forms_meta.form_id = " + formId + " "
-					+ "LIMIT 1 OFFSET " + (i-1) + "";
+					+ "WHERE forms_meta.form_id = " + formId + "";
 			
 			preparedStatement = connect.prepareStatement(sql);				
-			ResultSet rsMeta = preparedStatement.executeQuery();
-			if (rsMeta.next()) {
-				formData.put(rsMeta.getString("meta_name"), rsMeta.getString("meta_value"));
+			ResultSet rsCount = preparedStatement.executeQuery();
+			int count = 0;
+			
+			if (rsCount.next()) {
+				count = rsCount.getInt(1);
+			}
+			
+			for (int i = 1; i <= count; i++) {		
+				sql = "SELECT meta_name, meta_value "
+						+ "FROM forms_meta "
+						+ "WHERE forms_meta.form_id = " + formId + " "
+						+ "LIMIT 1 OFFSET " + (i-1) + "";
+				
+				preparedStatement = connect.prepareStatement(sql);				
+				ResultSet rsMeta = preparedStatement.executeQuery();
+				if (rsMeta.next()) {
+					formData.put(rsMeta.getString("meta_name"), rsMeta.getString("meta_value"));
+				}
 			}
 		}
-		
 		return formData;
-		
 	}
 	
 	public boolean deleteForm(String formId) throws Exception {

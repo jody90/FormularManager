@@ -92,9 +92,17 @@ public class EditController extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				request.setAttribute("country", country);
-				request.setAttribute("formData", formData);
-				getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);				
+				if (!formData.isEmpty()) {					
+					request.setAttribute("country", country);
+					request.setAttribute("formData", formData);
+					getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);				
+				}
+				else {
+					// Wenn formData leer ist Meldung ausgeben, dass Formular geloescht wurde 
+					response.sendRedirect("/FormularManager/list");
+					return;
+				}
+				
 			break;
 			case "delete" :
 				try {
@@ -103,7 +111,6 @@ public class EditController extends HttpServlet {
 						System.out.println("Delete aufrufen");
 						writeDatabaseResponse = form.deleteForm(formId);
 					}
-					
 					
 					if (writeDatabaseResponse) {
 						response.sendRedirect("/FormularManager/list");
