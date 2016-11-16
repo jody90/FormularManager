@@ -22,12 +22,9 @@ public class ListForms {
 			
 			connect = DriverManager.getConnection("jdbc:mysql://localhost/formular_manager?user=root&password=root");
 
-			String sql = "SELECT "
-					+ "forms.id, "
-					+ "forms.type,"
-					+ "forms.created_at, "
-					+ "forms.modified_at "
-					+ "FROM formular_manager.forms";
+			String sql = "SELECT * "
+					+ "FROM formular_manager.forms "
+					+ "WHERE delete_status != 1";
 			
 			preparedStatement = connect.prepareStatement(sql);
 			

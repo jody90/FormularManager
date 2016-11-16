@@ -1,7 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<h1>
-	Liste
-</h1>
+
 <table class="table table-striped table-hover">
 	<tr>
 		<th>
@@ -25,24 +23,27 @@
 	</tr>
 	<c:forEach items="${formsList}" var="item">
 		<tr>
-			<td>
+			<td class="align-middle">
 		    	${item.getId()}
 		    </td>
-  			<td>
+  			<td class="align-middle">
 		    	${item.getFormTitle()}
 		    </td>
-			<td>
+			<td class="align-middle">
 		    	${item.getType()}
 		    </td>
-   			<td>
+   			<td class="align-middle">
 		    	${item.getCreatedAt()}
 		    </td>
-   			<td>
+   			<td class="align-middle">
 		    	${item.getModifiedAt()}
 		    </td>
-    		<td>
-		    	<a href="${pageContext.request.contextPath}/edit?action=edit&contry=DE&form_id=${item.getId()}">
-		    		<span class="glyphicon glyphicon-edit symbol-md" aria-hidden="true"></span>
+    		<td class="align-middle">
+		    	<a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=edit&contry=DE&form_id=${item.getId()}">
+		    		<span class="glyphicon glyphicon-edit symbol-mad" aria-hidden="true"></span>
+		    	</a>
+  			    <a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=delete&contry=DE&form_id=${item.getId()}">
+		    		<span class="glyphicon glyphicon-trash symbol-mad" aria-hidden="true"></span>
 		    	</a>
 		    </td>
 		</tr>

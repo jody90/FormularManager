@@ -16,6 +16,7 @@
 	<link href="css/menu.css" rel="stylesheet">
 	<link href="css/responsiveTables.css" rel="stylesheet">
 	<link href="css/formBuilder.css" rel="stylesheet">
+	<link href="css/list.css" rel="stylesheet">
 	
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -29,7 +30,7 @@
 		<div class="pageheader row margin-bottom-md text-center header">
             <div class="col-xs-1 header-logo">
 	            <a href="${pageContext.request.contextPath}/index">
-	                Sortimo Logo
+	                <img src="images/sortimo-logo.png" title="sortimo" alt="sortimo logo" class="img-responsive">
 	            </a>
             </div>
             <div class="col-xs-11 header-text">

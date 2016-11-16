@@ -74,8 +74,6 @@ public class FormEdit {
 			+ "ON DUPLICATE KEY UPDATE "
 			+ "meta_name = ?, meta_value = ?";
 		
-		System.out.println(sql);
-		
 		for (Map.Entry<String, String> entry : metaData.entrySet()) {
 			preparedStatement = connect.prepareStatement(sql);
 			preparedStatement.setInt(1, formId);
@@ -94,13 +92,10 @@ public class FormEdit {
 		Map<String, String> formData = new HashMap<String, String>();
 		Connection connect = this.connect();
 
-		String sql = "SELECT "
-				+ "forms.id, "
-				+ "forms.type, "
-				+ "forms.created_at, "
-				+ "forms.modified_at "
+		String sql = "SELECT * "
 				+ "FROM formular_manager.forms "
-				+ "WHERE forms.id = " + formId + "";
+				+ "WHERE forms.id = " + formId + " "
+				+ "AND delete_status != 1";
 		
 		preparedStatement = connect.prepareStatement(sql);				
 		ResultSet rsData = preparedStatement.executeQuery();
@@ -138,6 +133,27 @@ public class FormEdit {
 		}
 		
 		return formData;
+		
+	}
+	
+	public boolean deleteForm(String formId) throws Exception {
+		
+		Connection connect = this.connect();
+
+		String sql = "UPDATE "
+				+ "formular_manager.forms "
+				+ "SET delete_status = 1, "
+				+ "modified_at = default "
+				+ "WHERE id = " + formId + "";
+		
+		
+		preparedStatement = connect.prepareStatement(sql);
+		preparedStatement.execute();
+
+		boolean writeDatabaseResponse = true;
+		System.out.println(writeDatabaseResponse);
+		
+		return writeDatabaseResponse;
 		
 	}
 	

@@ -94,26 +94,29 @@ public class EditController extends HttpServlet {
 				
 				request.setAttribute("country", country);
 				request.setAttribute("formData", formData);
-				getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);
-
-				
-//				try {
-//					boolean writeDatabaseResponse = form.writeDatabaseForm(globalData, metaData);
-//					
-//					if (writeDatabaseResponse) {
-//						response.sendRedirect("/FormularManager/list");
-//						return;
-//					}
-//					else {					
-//						response.sendRedirect("/FormularManager/error");
-//						return;
-//					}					
-//				} 
-//				catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				ArrayList<FormEditData> = form.getFormEditData(String formId, String country);
-				
+				getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);				
+			break;
+			case "delete" :
+				try {
+					boolean writeDatabaseResponse = false;
+					if (!formId.equals("false")) {
+						System.out.println("Delete aufrufen");
+						writeDatabaseResponse = form.deleteForm(formId);
+					}
+					
+					
+					if (writeDatabaseResponse) {
+						response.sendRedirect("/FormularManager/list");
+						return;
+					}
+					else {					
+						response.sendRedirect("/FormularManager/error");
+						return;
+					}					
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}			
 			break;
 			case "new" :
 				getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);

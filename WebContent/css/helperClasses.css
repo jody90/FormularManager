@@ -76,3 +76,8 @@
 .symbol-lg {
 	font-size: 26px;	
 }
+
+.table tbody>tr>td.align-middle {
+	vertical-align: middle;
+	
+}
