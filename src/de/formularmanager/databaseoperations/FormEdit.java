@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-import sun.security.action.GetIntegerAction;
 
 public class FormEdit {
 	private Connection connect = null;
@@ -18,13 +17,14 @@ public class FormEdit {
 	private boolean writeDatabaseResponse = false;
 	
 	public boolean insertForm(Map<String, String> globalData, Map<String, String> metaData) throws Exception {
-	
+
 		Connection connect = this.connect();
 		String sql = "INSERT INTO formular_manager.forms values (default, ?, default, default)";
 	
 		preparedStatement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, globalData.get("formType"));
 		preparedStatement.executeUpdate();
+		
 		
 		ResultSet rs = preparedStatement.getGeneratedKeys();
         
@@ -38,15 +38,15 @@ public class FormEdit {
 		}
 		
 		if (lastInsertId > -1) {
+			sql = "INSERT INTO formular_manager.forms_meta values (default, ?, ?, ?)";
 			for (Map.Entry<String, String> entry : metaData.entrySet()) {
-				preparedStatement = connect.prepareStatement("INSERT INTO formular_manager.forms_meta values (default, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				preparedStatement = connect.prepareStatement(sql);
 				preparedStatement.setInt(1, lastInsertId);
 				preparedStatement.setString(2, entry.getKey());
 				preparedStatement.setString(3, entry.getValue());
 				preparedStatement.executeUpdate();
 			}
 			
-			System.out.println(lastInsertId);
 		}
 		
 		writeDatabaseResponse = true;
@@ -56,39 +56,35 @@ public class FormEdit {
 	public boolean updateForm(Map<String, String> globalData, Map<String, String> metaData) throws Exception {
 		
 		Connection connect = this.connect();
+		int formId = Integer.parseInt(globalData.get("formId"));
+
 		String sql = "UPDATE "
 				+ "formular_manager.forms "
 				+ "SET type = ?, "
 				+ "modified_at = default "
-				+ "WHERE id = " + globalData.get("formId") + "";
-	
+				+ "WHERE id = " + formId + "";
+		
 		preparedStatement = connect.prepareStatement(sql);
 		preparedStatement.setString(1, globalData.get("formType"));
 		preparedStatement.executeUpdate();
 		
-//		ResultSet rs = preparedStatement.getGeneratedKeys();
-//        
-//		int lastInsertId = -1;
-//		
-//		if (rs.next()) {
-//            lastInsertId = rs.getInt(1);
-//        }
-//		else {
-//			this.close();
-//		}
-//		
-//		if (lastInsertId > -1) {
-//			for (Map.Entry<String, String> entry : metaData.entrySet()) {
-//				preparedStatement = connect.prepareStatement("INSERT INTO formular_manager.forms_meta values (default, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-//				preparedStatement.setInt(1, lastInsertId);
-//				preparedStatement.setString(2, entry.getKey());
-//				preparedStatement.setString(3, entry.getValue());
-//				preparedStatement.executeUpdate();
-//			}
-//			
-//			System.out.println(lastInsertId);
-//		}
+		sql = "INSERT INTO "
+			+ "formular_manager.forms_meta "
+			+ "values (default, ?, ?, ?) "
+			+ "ON DUPLICATE KEY UPDATE "
+			+ "meta_name = ?, meta_value = ?";
 		
+		System.out.println(sql);
+		
+		for (Map.Entry<String, String> entry : metaData.entrySet()) {
+			preparedStatement = connect.prepareStatement(sql);
+			preparedStatement.setInt(1, formId);
+			preparedStatement.setString(2, entry.getKey());
+			preparedStatement.setString(3, entry.getValue());
+			preparedStatement.setString(4, entry.getKey());
+			preparedStatement.setString(5, entry.getValue());
+			preparedStatement.executeUpdate();
+		}		
 		writeDatabaseResponse = true;
 		return writeDatabaseResponse;
 	}

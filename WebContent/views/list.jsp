@@ -42,7 +42,7 @@
 		    </td>
     		<td>
 		    	<a href="${pageContext.request.contextPath}/edit?action=edit&contry=DE&form_id=${item.getId()}">
-		    		<span class="glyphicon glyphicon-edit icon-md" aria-hidden="true"></span>
+		    		<span class="glyphicon glyphicon-edit symbol-md" aria-hidden="true"></span>
 		    	</a>
 		    </td>
 		</tr>

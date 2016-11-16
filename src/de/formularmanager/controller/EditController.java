@@ -60,10 +60,12 @@ public class EditController extends HttpServlet {
 			case "save" :
 				try {
 					boolean writeDatabaseResponse = false;
-					if (formId == "false") {						
+					if (formId.equals("false")) {
+						System.out.println("Insert aufrufen");
 						writeDatabaseResponse = form.insertForm(globalData, metaData);
 					}
 					else {
+						System.out.println("Update aufrufen");
 						writeDatabaseResponse = form.updateForm(globalData, metaData);
 					}
 					
