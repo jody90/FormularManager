@@ -19,7 +19,6 @@
 		<servlet-name>edit</servlet-name>
 		<url-pattern>/edit</url-pattern>
 	</servlet-mapping>
-	
 	<servlet>
 		<servlet-name>list</servlet-name>
 		<servlet-class>de.formularmanager.controller.ListController</servlet-class>
@@ -28,7 +27,6 @@
 		<servlet-name>list</servlet-name>
 		<url-pattern>/list</url-pattern>
 	</servlet-mapping>
-	
 	<servlet>
 		<servlet-name>public</servlet-name>
 		<servlet-class>de.formularmanager.controller.PublicController</servlet-class>
@@ -37,7 +35,14 @@
 		<servlet-name>public</servlet-name>
 		<url-pattern>/public</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+		<servlet-name>thanks</servlet-name>
+		<servlet-class>de.formularmanager.controller.ThanksController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>thanks</servlet-name>
+		<url-pattern>/thanks</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>error</servlet-name>
 		<servlet-class>de.formularmanager.controller.ErrorController</servlet-class>
@@ -46,7 +51,6 @@
 		<servlet-name>error</servlet-name>
 		<url-pattern>/error</url-pattern>
 	</servlet-mapping>
-	
 	<mime-mapping>
 		<extension>css</extension>
 		<mime-type>text/css</mime-type>

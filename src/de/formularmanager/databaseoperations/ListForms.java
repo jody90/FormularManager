@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.formularmanager.storage.FormsListStorage;
 
@@ -15,7 +17,7 @@ public class ListForms {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
-	public ArrayList<FormsListStorage> getFormsList() throws Exception {	
+	public ArrayList<FormsListStorage> getFormsList(String country) throws Exception {	
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -37,20 +39,27 @@ public class ListForms {
 				String type = rs.getString("type");
 				String createdAt = rs.getString("created_at");
 				String modifiedAt = rs.getString("modified_at");
-				String formTitle = "kein Titel";
 				
-				sql = "SELECT meta_value "
-				+ "FROM formular_manager.forms_meta "
-				+ "WHERE formular_manager.forms_meta.meta_name LIKE 'form_title_%' "
-				+ "AND formular_manager.forms_meta.form_id = " + id + "";
+				sql = "SELECT form_id, "
+						+ "MAX(CASE WHEN meta_name = 'form_title_"+country+"' THEN meta_value END) as form_title, "
+						+ "MAX(CASE WHEN meta_name = 'valid_from_"+country+"' THEN meta_value END) as valid_from, "
+						+ "MAX(CASE WHEN meta_name = 'valid_to_"+country+"' THEN meta_value END) as valid_to "
+						+ "FROM forms_meta "
+						+ "WHERE form_id = " + id + " "
+						+ "GROUP BY form_id";
 
 				preparedStatement = connect.prepareStatement(sql);				
 				ResultSet rsMeta = preparedStatement.executeQuery();
-				if (rsMeta.next()) {					
-					formTitle = !rsMeta.getString("meta_value").isEmpty() ? rsMeta.getString("meta_value") : "kein Titel";
+				
+				Map<String, String> formMeta = new HashMap<String, String>();
+				
+				if (rsMeta.next()) {			
+					formMeta.put("formTitle", rsMeta.getString("form_title"));
+					formMeta.put("validFrom", rsMeta.getString("valid_from"));
+					formMeta.put("validTo", rsMeta.getString("valid_to"));
 				}
 				
-				results.add(new FormsListStorage(id, type, createdAt, modifiedAt, formTitle));
+				results.add(new FormsListStorage(id, type, createdAt, modifiedAt, formMeta));
 			}
 			return results;
 		}

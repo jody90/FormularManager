@@ -1,43 +1,57 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:useBean id="conf" class="de.formularmanager.global.ConfigMaps"></jsp:useBean>
+<jsp:useBean id="help" class="de.formularmanager.global.HelperFunctions"></jsp:useBean>
+
+<c:set var="formTitle" value="form_title_${country}"></c:set>
+<c:set var="validFrom" value="valid_from_${country}"></c:set>
+<c:set var="validTo" value="valid_to_${country}"></c:set>
+<c:set var="formContentXml" value="form_content_xml_${country}"></c:set>
+
 <div class="row">
-	<div class="col-xs-3 bg-gray">
+	<div class="col-xs-3 padding-md">
 		<form action="EditController" method="post">
 		
 			<input type="hidden" name="form_id" value="${formId}">
 
+			<div class="form-group">
+				<label for="form_title">Formular Titel</label>
+				<input class="form-control" type="text" name="form_title_countryPlaceholder" value="${formData[formTitle]}" placeholder="Formular Titel">
+			</div>
+			
 			<div class="margin-bottom-md">
 				<label for="formType">Formular Type</label>
 				<select name="formType" class="form-control">
-					<option value="umfrage">Umfrage</option>
-					<option value="antrag">Antrag</option>
+					<c:forEach items="${conf.getTypes()}" var="type">
+						<option value="${type.key}" ${formData['formType'] == type.key ? 'selected' : ''}>
+							${type.value}
+						</option>
+					</c:forEach>
 				</select>
 			</div>
 
 			<div class="margin-bottom-md">
 				<label for="country">Land</label>
 				<select name="country" class="form-control">
-					<option value="DE">Deutschland</option>
-					<option value="CH">Schweiz</option>
-					<option value="AT">Östereich</option>
+					<c:forEach items="${conf.getCountries()}" var="land">
+						<option value="${land.key}" ${country == land.key ? 'selected' : ''}>
+							${land.value}
+						</option>
+					</c:forEach>
 				</select>
-			</div>
-			
-			<div class="form-group">
-				<label for="form_title">Formular Titel</label>
-				<input class="form-control" type="text" name="form_title_countryPlaceholder" value="${formData['form_title_DE']}" placeholder="Formular Titel">
 			</div>
 
 			<div class="form-group">
 				<label for="validFrom">Gültig von:</label>
-				<input class="form-control" type="text" name="valid_from_countryPlaceholder" value="${formData['valid_from_DE']}" placeholder="01.01.2016 12:15:00">
+				<input class="form-control datetimepicker" type="text" name="valid_from_countryPlaceholder" value="${formData[validFrom]}" placeholder="01.01.2016 12:15">
 			</div>
 			
 			<div class="form-group">
 				<label for="validTo">Gültig bis:</label>
-				<input class="form-control" type="text" name="valid_to_countryPlaceholder" value="${formData['valid_to_DE']}" placeholder="01.01.2016 12:15:00">
+				<input class="form-control datetimepicker" type="text" name="valid_to_countryPlaceholder" value="${formData[validTo]}" placeholder="01.01.2016 10:30">
 			</div>
 			
 			<textarea rows="10" cols="45" name="form_content_html_countryPlaceholder" class="hidden" id="form_content_html"></textarea>
-			<textarea rows="10" cols="45" name="form_content_xml_countryPlaceholder" class="hidden" id="form_content_xml">${formData['form_content_xml_DE']}</textarea>
+			<textarea rows="10" cols="45" name="form_content_xml_countryPlaceholder" class="hidden" id="form_content_xml">${formData[formContentXml]}</textarea>
 		
 			<button class="btn btn-success save-form" type="submit" name="action" value="save">
 				Formular speichern

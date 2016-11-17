@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:useBean id="list" class="de.formularmanager.controller.ListController"></jsp:useBean>
 
 <table class="table table-striped table-hover">
 	<tr>
@@ -11,44 +12,21 @@
 		<th>
 			Typ
 		</th>
-		<th>
-			Erstellt am
-		</th>
-		<th>
-			Geändert am
-		</th>
-		<th>
+		<th class="text-right">
 			Optionen			
 		</th>
 	</tr>
 	<c:forEach items="${formsList}" var="item">
-		<tr>
-			<td class="align-middle">
-		    	${item.getId()}
-		    </td>
-  			<td class="align-middle">
-  				<a href="${pageContext.request.contextPath}/public?country=DE&form_id=${item.getId()}">
-			    	${item.getFormTitle()}
-  				</a>
-		    </td>
-			<td class="align-middle">
-		    	${item.getType()}
-		    </td>
-   			<td class="align-middle">
-		    	${item.getCreatedAt()}
-		    </td>
-   			<td class="align-middle">
-		    	${item.getModifiedAt()}
-		    </td>
-    		<td class="align-middle">
-		    	<a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=edit&country=DE&form_id=${item.getId()}">
-		    		<span class="glyphicon glyphicon-edit symbol-mad" aria-hidden="true"></span>
-		    	</a>
-  			    <a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=delete&country=DE&form_id=${item.getId()}">
-		    		<span class="glyphicon glyphicon-trash symbol-mad" aria-hidden="true"></span>
-		    	</a>
-		    </td>
-		</tr>
+		<c:choose>
+		   	<c:when test="${filter == 'active'}">
+		   		<c:if test="${list.isActive(item.getFormMeta()['validFrom'], item.getFormMeta()['validTo'])}">
+					<%@include file="_listContent.tpl.jsp" %>
+		   		</c:if>
+		   	</c:when>
+		   	<c:otherwise>
+				<%@include file="_listContent.tpl.jsp" %>
+			</c:otherwise>
+		</c:choose>
 	</c:forEach>
 </table>
 

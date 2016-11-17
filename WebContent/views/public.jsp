@@ -10,11 +10,12 @@
 	<div class="row">
 		<div class="col-xs-12 text-center">
 			<form method="post" action="PublicController" class="public-form">
+				<input type="hidden" name="form_id" value="${formId}">
 				
 				${formData['form_content_html_DE']}
 
 				<br>
-				<button class="btn btn-success margin-top-md" type="submit" action="save">
+				<button class="btn btn-success margin-top-md" type="submit" name="action" value="save">
 					Abschicken
 				</button>
 			</form>

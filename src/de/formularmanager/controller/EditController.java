@@ -20,7 +20,7 @@ public class EditController extends HttpServlet {
     public EditController() {
         super();
     }
-
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.getWriter().append("Served at: ").append(request.getContextPath());		
@@ -38,6 +38,7 @@ public class EditController extends HttpServlet {
 		
 		request.setAttribute("pageTitle", "Formular bearbeiten");
 		request.setAttribute("formId", formId);
+		request.setAttribute("country", country);
 		request.setAttribute("view", "edit");
 		
 		globalData.put("formId", formId);

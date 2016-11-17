@@ -1,13 +1,15 @@
 package de.formularmanager.storage;
 
+import java.util.Map;
+
 public class FormsListStorage {
 	
-	public FormsListStorage(String id, String type, String created_at, String modified_at, String form_title) {
+	public FormsListStorage(String id, String type, String created_at, String modified_at, Map<String, String> formMeta) {
 		this.setId(id);
 		this.setType(type);
 		this.setCreatedAt(created_at);
 		this.setModifiedAt(modified_at);
-		this.setFormTitle(form_title);
+		this.setFormMeta(formMeta);
 	}
 	
 	private String id;
@@ -18,14 +20,14 @@ public class FormsListStorage {
 
 	private String modifiedAt;
 	
-	private String formTitle;
+	private Map<String, String> formMeta;
 	
-	public String getFormTitle() {
-		return formTitle;
+	public Map<String, String> getFormMeta() {
+		return formMeta;
 	}
 
-	public void setFormTitle(String formTitle) {
-		this.formTitle = formTitle;
+	public void setFormMeta(Map<String, String> formMeta) {
+		this.formMeta = formMeta;
 	}
 
 	public String getId() {

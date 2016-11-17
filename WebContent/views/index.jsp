@@ -12,7 +12,7 @@
         </span>
     </a>
     
-    <a class="navi-item-box" href="${pageContext.request.contextPath}/active">
+    <a class="navi-item-box" href="${pageContext.request.contextPath}/list?filter=active">
         <span class="navi-item-text">
             <span class="glyphicon glyphicon-equalizer navi-item-icon" aria-hidden="true"></span><br>
             Aktiv

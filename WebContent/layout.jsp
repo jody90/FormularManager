@@ -9,6 +9,7 @@
 	
 	<link href="css/form-builder.css" rel="stylesheet">
 	<link href="css/form-render.css" rel="stylesheet">
+	<link href="css/jquery.datetimepicker.min.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/helperClasses.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
@@ -19,11 +20,13 @@
 	<link href="css/list.css" rel="stylesheet">
 	<link href="css/public.css" rel="stylesheet">
 	
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-	  <script src="js/form-builder.min.js"></script>
-	  <script src="js/form-render.min.js"></script>
-	  <script src="js/formBuilderFunctions.js"></script>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/form-builder.min.js"></script>
+	<script src="js/form-render.min.js"></script>
+	<script src="js/formBuilderFunctions.js"></script>
+	<script src="js/jquery.datetimepicker.full.min.js"></script>
+	<script src="js/scripts.js"></script>
 
 </head>
 <body>
