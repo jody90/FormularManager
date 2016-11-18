@@ -20,6 +20,8 @@
 	<link href="css/list.css" rel="stylesheet">
 	<link href="css/public.css" rel="stylesheet">
 	
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/form-builder.min.js"></script>
