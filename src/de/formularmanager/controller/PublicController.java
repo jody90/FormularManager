@@ -76,8 +76,8 @@ public class PublicController extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				String validFromString = formData.get("valid_from_" + country);
-				String validToString = formData.get("valid_to_" + country);
+				String validFromString = formData.get("validFrom");
+				String validToString = formData.get("validTo");
 
 				boolean formIsActive = false;
 				

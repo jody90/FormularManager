@@ -19,10 +19,11 @@ public class FormEdit {
 	public boolean insertForm(Map<String, String> globalData, Map<String, String> metaData) throws Exception {
 
 		Connection connect = this.connect();
-		String sql = "INSERT INTO formular_manager.forms values (default, ?, default, default, default)";
+		String sql = "INSERT INTO formular_manager.forms values (default, ?, ?, default, default, default)";
 	
 		preparedStatement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, globalData.get("formType"));
+		preparedStatement.setString(2, globalData.get("country"));
 		preparedStatement.executeUpdate();
 		
 		

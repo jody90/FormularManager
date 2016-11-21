@@ -50,16 +50,16 @@ public class ListController extends HttpServlet {
 		ListForms Forms = new ListForms();
 		
 		String filter = request.getParameter("filter") != null ? request.getParameter("filter") : "false";
-		String country = request.getParameter("country") != null ? request.getParameter("country") : "DE";
+//		String country = request.getParameter("country") != null ? request.getParameter("country") : "de";
 		
 		try {
-			ArrayList<FormsListStorage> formsList = Forms.getFormsList(country);		
+			ArrayList<FormsListStorage> formsList = Forms.getFormsList();		
 			request.setAttribute("formsList", formsList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("pageTitle", "Übersicht");
+		request.setAttribute("page_title", "Übersicht");
 		request.setAttribute("filter", filter);
 		request.setAttribute("view", "list");
 		
@@ -67,8 +67,7 @@ public class ListController extends HttpServlet {
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

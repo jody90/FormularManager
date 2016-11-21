@@ -4,9 +4,10 @@ import java.util.Map;
 
 public class FormsListStorage {
 	
-	public FormsListStorage(String id, String type, String created_at, String modified_at, Map<String, String> formMeta) {
+	public FormsListStorage(String id, String type, String country, String created_at, String modified_at, Map<String, String> formMeta) {
 		this.setId(id);
 		this.setType(type);
+		this.setCountry(country);
 		this.setCreatedAt(created_at);
 		this.setModifiedAt(modified_at);
 		this.setFormMeta(formMeta);
@@ -15,12 +16,22 @@ public class FormsListStorage {
 	private String id;
 	
 	private String type;
-	
+
+	private String country;
+
 	private String createdAt;
 
 	private String modifiedAt;
 	
 	private Map<String, String> formMeta;
+	
+	public String getCountry() {
+		return country;
+	}
+	
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	
 	public Map<String, String> getFormMeta() {
 		return formMeta;

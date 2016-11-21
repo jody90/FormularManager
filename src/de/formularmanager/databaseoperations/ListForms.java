@@ -17,7 +17,7 @@ public class ListForms {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
-	public ArrayList<FormsListStorage> getFormsList(String country) throws Exception {	
+	public ArrayList<FormsListStorage> getFormsList() throws Exception {	
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -37,13 +37,14 @@ public class ListForms {
 			while(rs.next()) {
 				String id = rs.getString("id");
 				String type = rs.getString("type");
+				String country = rs.getString("country");
 				String createdAt = rs.getString("created_at");
 				String modifiedAt = rs.getString("modified_at");
 				
 				sql = "SELECT form_id, "
-						+ "MAX(CASE WHEN meta_name = 'form_title_"+country+"' THEN meta_value END) as form_title, "
-						+ "MAX(CASE WHEN meta_name = 'valid_from_"+country+"' THEN meta_value END) as valid_from, "
-						+ "MAX(CASE WHEN meta_name = 'valid_to_"+country+"' THEN meta_value END) as valid_to "
+						+ "MAX(CASE WHEN meta_name = 'formTitle' THEN meta_value END) as formTitle, "
+						+ "MAX(CASE WHEN meta_name = 'validFrom' THEN meta_value END) as validFrom, "
+						+ "MAX(CASE WHEN meta_name = 'validTo' THEN meta_value END) as validTo "
 						+ "FROM forms_meta "
 						+ "WHERE form_id = " + id + " "
 						+ "GROUP BY form_id";
@@ -54,12 +55,12 @@ public class ListForms {
 				Map<String, String> formMeta = new HashMap<String, String>();
 				
 				if (rsMeta.next()) {			
-					formMeta.put("formTitle", rsMeta.getString("form_title"));
-					formMeta.put("validFrom", rsMeta.getString("valid_from"));
-					formMeta.put("validTo", rsMeta.getString("valid_to"));
+					formMeta.put("formTitle", rsMeta.getString("formTitle"));
+					formMeta.put("validFrom", rsMeta.getString("validFrom"));
+					formMeta.put("validTo", rsMeta.getString("validTo"));
 				}
 				
-				results.add(new FormsListStorage(id, type, createdAt, modifiedAt, formMeta));
+				results.add(new FormsListStorage(id, type, country, createdAt, modifiedAt, formMeta));
 			}
 			return results;
 		}

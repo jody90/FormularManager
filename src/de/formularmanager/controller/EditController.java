@@ -29,7 +29,7 @@ public class EditController extends HttpServlet {
 		
 		String action = request.getParameter("action") != null ? request.getParameter("action") : "new";
 		String formId = request.getParameter("form_id") != null ? request.getParameter("form_id") : "false";			
-		String country = request.getParameter("country") != null ? request.getParameter("country") : "DE";
+		String country = request.getParameter("country") != null ? request.getParameter("country") : "de";
 		
 		Enumeration<String> paramNames = request.getParameterNames();
 		
@@ -48,8 +48,8 @@ public class EditController extends HttpServlet {
 			// Parameter Keys in String Array schreiben
 			String paramName = (String) paramNames.nextElement();
 
-			if (paramName.endsWith("_countryPlaceholder")) {
-				String newParamName = paramName.replace("countryPlaceholder", country);
+			if (paramName.startsWith("meta_")) {
+				String newParamName = paramName.replace("meta_", "");
 				metaData.put(newParamName, request.getParameter(paramName));					
 			}
 			else {

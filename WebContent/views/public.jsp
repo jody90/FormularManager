@@ -2,7 +2,7 @@
 	<div class="row margin-bottom-lg">
 		<div class="col-xs-12 text-center">
 			<h1>
-				${formData['form_title_DE']}
+				${formData['form_title']}
 			</h1>
 		</div>
 	</div>
@@ -12,7 +12,7 @@
 			<form method="post" action="PublicController" class="public-form">
 				<input type="hidden" name="form_id" value="${formId}">
 				
-				${formData['form_content_html_DE']}
+				${formData['formContentHtml']}
 
 				<br>
 				<button class="btn btn-success margin-top-md" type="submit" name="action" value="save">

@@ -2,11 +2,6 @@
 <jsp:useBean id="conf" class="de.formularmanager.global.ConfigMaps"></jsp:useBean>
 <jsp:useBean id="help" class="de.formularmanager.global.HelperFunctions"></jsp:useBean>
 
-<c:set var="formTitle" value="form_title_${country}"></c:set>
-<c:set var="validFrom" value="valid_from_${country}"></c:set>
-<c:set var="validTo" value="valid_to_${country}"></c:set>
-<c:set var="formContentXml" value="form_content_xml_${country}"></c:set>
-
 <div class="row">
 	<div class="col-xs-3 padding-md">
 		<form action="EditController" method="post">
@@ -15,7 +10,7 @@
 
 			<div class="form-group">
 				<label for="form_title">Formular Titel</label>
-				<input class="form-control" type="text" name="form_title_countryPlaceholder" value="${formData[formTitle]}" placeholder="Formular Titel">
+				<input class="form-control" type="text" name="meta_formTitle" value="${formData['formTitle']}" placeholder="Formular Titel">
 			</div>
 			
 			<div class="margin-bottom-md">
@@ -30,9 +25,9 @@
 			</div>
 
 			<div class="margin-bottom-md">
-				<label for="country">Land</label>
+				<label for="country">Sprache</label>
 				<select name="country" class="form-control">
-					<c:forEach items="${conf.getCountries()}" var="land">
+					<c:forEach items="${conf.getcountrys()}" var="land">
 						<option value="${land.key}" ${country == land.key ? 'selected' : ''}>
 							${land.value}
 						</option>
@@ -41,17 +36,17 @@
 			</div>
 
 			<div class="form-group">
-				<label for="validFrom">Gültig von:</label>
-				<input class="form-control datetimepicker" type="text" name="valid_from_countryPlaceholder" value="${formData[validFrom]}" placeholder="01.01.2016 12:15">
+				<label for="meta_validFrom">Gültig von:</label>
+				<input class="form-control datetimepicker" type="text" name="meta_validFrom" value="${formData['validFrom']}" placeholder="01.01.2016 12:15">
 			</div>
 			
 			<div class="form-group">
-				<label for="validTo">Gültig bis:</label>
-				<input class="form-control datetimepicker" type="text" name="valid_to_countryPlaceholder" value="${formData[validTo]}" placeholder="01.01.2016 10:30">
+				<label for="meta_validTo">Gültig bis:</label>
+				<input class="form-control datetimepicker" type="text" name="meta_validTo" value="${formData['validTo']}" placeholder="01.01.2016 10:30">
 			</div>
 			
-			<textarea rows="10" cols="45" name="form_content_html_countryPlaceholder" class="hidden" id="form_content_html"></textarea>
-			<textarea rows="10" cols="45" name="form_content_xml_countryPlaceholder" class="hidden" id="form_content_xml">${formData[formContentXml]}</textarea>
+			<textarea rows="10" cols="45" name="meta_formContentHtml" class="hidden" id="form_content_html"></textarea>
+			<textarea rows="10" cols="45" name="meta_formContentXml" class="hidden" id="form_content_xml">${formData['formContentXml']}</textarea>
 		
 			<button class="btn btn-success save-form" type="submit" name="action" value="save">
 				Formular speichern

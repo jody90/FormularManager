@@ -5,13 +5,12 @@ import java.util.Map;
 
 public class ConfigMaps {
 
-	public Map<String, String> getCountries() {
+	public Map<String, String> getcountrys() {
 		Map<String, String> countries = new HashMap<String, String>();
 		countries.put("DE", "Deutschland");
-		countries.put("EN", "England");
-		countries.put("AT", "Östereich");
-		countries.put("CH", "Schweiz");
+		countries.put("AT", "England");
 		countries.put("FR", "Frankreich");
+		countries.put("CH", "Schweiz");
 		return countries;
 	}
 	
