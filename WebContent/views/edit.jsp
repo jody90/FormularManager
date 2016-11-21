@@ -45,8 +45,12 @@
 				<input class="form-control datetimepicker" type="text" name="meta_validTo" value="${formData['validTo']}" placeholder="01.01.2016 10:30">
 			</div>
 			
-			<textarea rows="10" cols="45" name="meta_formContentHtml" class="hidden" id="form_content_html"></textarea>
-			<textarea rows="10" cols="45" name="meta_formContentXml" class="hidden" id="form_content_xml">${formData['formContentXml']}</textarea>
+			<textarea rows="10" cols="45" name="meta_formContentHtml" class="hiddenn" id="form_content_html"></textarea>
+			<!-- 
+			 <textarea rows="10" cols="45" name="meta_formContentJson" class="hiddenn" id="form_content_json">${formData['formContentJson']}</textarea>
+			 -->
+			
+			<input type="hidden" name="meta_formContentJson" value='${formData["formContentJson"]}' id="form_content_json">
 		
 			<button class="btn btn-success save-form" type="submit" name="action" value="save">
 				Formular speichern

@@ -7,6 +7,8 @@ public class FromsStatisticsStorage {
 
 	private int formId;
 	
+	private String jsonForm;
+
 	private Map<Integer, Map<String, String>> statisticsValue;
 
 	private Map<Integer, Map<String, String>> statisticsValueHelper = new HashMap<Integer, Map<String, String>>();
@@ -32,6 +34,14 @@ public class FromsStatisticsStorage {
 
 	public void setFormId(int i) {
 		this.formId = i;
+	}
+	
+	public String getJsonForm() {
+		return jsonForm;
+	}
+
+	public void setJsonForm(String jsonForm) {
+		this.jsonForm = jsonForm;
 	}
 	
 }

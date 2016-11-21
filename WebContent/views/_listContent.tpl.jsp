@@ -3,7 +3,7 @@
 	    	${item.getId()}
     </td>
 	<td class="align-middle">
-		<a href="${pageContext.request.contextPath}/public?country=de&form_id=${item.getId()}">
+		<a href="${pageContext.request.contextPath}/public?country=DE&form_id=${item.getId()}">
 	    	${item.getFormMeta()["formTitle"]}
 		</a>
     </td>
@@ -11,13 +11,13 @@
     	${item.getType()}
     </td>
 	<td class="align-middle text-right">
-    	<a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=edit&country=de&form_id=${item.getId()}">
+    	<a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=edit&country=DE&form_id=${item.getId()}">
     		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
     	</a>
-	    <a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=delete&country=de&form_id=${item.getId()}">
+	    <a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=delete&country=DE&form_id=${item.getId()}">
     		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
     	</a>
- 		<a class="list-option-link" href="${pageContext.request.contextPath}/statistics?country=de&form_id=${item.getId()}">
+ 		<a class="list-option-link" href="${pageContext.request.contextPath}/statistics?country=DE&form_id=${item.getId()}">
     		<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
     	</a>
     	

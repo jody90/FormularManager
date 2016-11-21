@@ -36,6 +36,20 @@ public class FormStatistics {
 			
 			statisticsStorage.setFormId(rsData.getInt("form_id"));
 		}
+		
+		String sqla = "SELECT meta_value "
+				+ "FROM forms_meta "
+				+ "WHERE form_id = ? "
+				+ "AND meta_name = 'formContentJson'";
+		
+		preparedStatement = connect.prepareStatement(sqla);
+		preparedStatement.setString(1, formId);
+		ResultSet rsJsonForm = preparedStatement.executeQuery();
+		
+		while (rsJsonForm.next()) {
+			String jsonForm = rsJsonForm.getString("meta_value");
+			statisticsStorage.setJsonForm(jsonForm);
+		}
 	
 		this.close();
 		return statisticsStorage;
