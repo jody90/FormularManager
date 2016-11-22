@@ -1,7 +1,6 @@
 package de.formularmanager.databaseoperations;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -9,23 +8,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class FormEdit {
+public class FormEdit extends Connect{
 	private Connection connect = null;
-	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
-	private ResultSet resultSet = null;
 	private boolean writeDatabaseResponse = false;
 	
 	public boolean insertForm(Map<String, String> globalData, Map<String, String> metaData) throws Exception {
+		Connect conClass = new Connect();
+		connect = conClass.getConnection();
 
-		Connection connect = this.connect();
 		String sql = "INSERT INTO formular_manager.forms values (default, ?, ?, default, default, default)";
 	
 		preparedStatement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, globalData.get("formType"));
 		preparedStatement.setString(2, globalData.get("country"));
 		preparedStatement.executeUpdate();
-		
 		
 		ResultSet rs = preparedStatement.getGeneratedKeys();
         
@@ -55,8 +52,8 @@ public class FormEdit {
 	}
 	
 	public boolean updateForm(Map<String, String> globalData, Map<String, String> metaData) throws Exception {
-		
-		Connection connect = this.connect();
+		Connect conClass = new Connect();
+		connect = conClass.getConnection();
 		int formId = Integer.parseInt(globalData.get("formId"));
 
 		String sql = "UPDATE "
@@ -89,9 +86,9 @@ public class FormEdit {
 	}
 	
 	public Map<String, String> getFormData(String formId) throws Exception {
-		
+		Connect conClass = new Connect();
+		connect = conClass.getConnection();
 		Map<String, String> formData = new HashMap<String, String>();
-		Connection connect = this.connect();
 
 		String sql = "SELECT * "
 				+ "FROM formular_manager.forms "
@@ -138,8 +135,8 @@ public class FormEdit {
 	}
 	
 	public boolean deleteForm(String formId) throws Exception {
-		
-		Connection connect = this.connect();
+		Connect conClass = new Connect();
+		connect = conClass.getConnection();
 
 		String sql = "UPDATE "
 				+ "formular_manager.forms "
@@ -156,37 +153,5 @@ public class FormEdit {
 		
 		return writeDatabaseResponse;
 		
-	}
-	
-	private Connection connect() throws Exception {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost/formular_manager?" + "user=root&password=root");			
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		return connect;
-	}
-	
-	// You need to close the resultSet
-	private void close() throws Exception {
-		try {
-			if (resultSet != null) {
-				resultSet.close();
-			}
-
-			if (statement != null) {
-				statement.close();
-			}
-
-			if (connect != null) {
-				connect.close();
-			}
-		} 
-		catch (Exception e) {
-			throw e;
-		}
-	}
-	
+	}	
 }

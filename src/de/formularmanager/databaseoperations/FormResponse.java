@@ -1,7 +1,7 @@
 package de.formularmanager.databaseoperations;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+//import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Map;
 import com.google.gson.*;
@@ -12,8 +12,9 @@ public class FormResponse {
 	private boolean writeDatabaseResponse = false;
 	
 	public boolean insertFormResponse(Map<String, String> responseData, Map<String, String> globalData) throws Exception {
-
-		Connection connect = this.connect();
+		Connect conClass = new Connect();
+		connect = conClass.getConnection();
+		
 		String sql = "INSERT INTO formular_manager.forms_response values (default, ?, ?, ?, default)";
 		
 		responseData.remove("action");
@@ -32,14 +33,14 @@ public class FormResponse {
 		return writeDatabaseResponse;
 	}
 	
-	private Connection connect() throws Exception {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost/formular_manager?" + "user=root&password=root");			
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		return connect;
-	}
+//	private Connection connect() throws Exception {
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//			connect = DriverManager.getConnection("jdbc:mysql://localhost/formular_manager?" + "user=root&password=root");			
+//		}
+//		catch (Exception e) {
+//			throw e;
+//		}
+//		return connect;
+//	}
 }

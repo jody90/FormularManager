@@ -1,23 +1,20 @@
 package de.formularmanager.databaseoperations;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import de.formularmanager.storage.FromsStatisticsStorage;
 
 public class FormStatistics {
 	private Connection connect = null;
-	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
-	private ResultSet resultSet = null;
 	private FromsStatisticsStorage statisticsStorage = new FromsStatisticsStorage();
 	
 	public FromsStatisticsStorage getStatistics(String formId, String country) throws Exception {
+		Connect conClass = new Connect();
+		connect = conClass.getConnection();
 		
-		Connection connect = this.connect();
 		String sql = "SELECT * "
 				+ "FROM forms_response "
 				+ "WHERE form_id = ?";
@@ -37,52 +34,26 @@ public class FormStatistics {
 			statisticsStorage.setFormId(rsData.getInt("form_id"));
 		}
 		
-		String sqla = "SELECT meta_value "
+		sql = "SELECT form_id, "
+				+ "MAX(CASE WHEN meta_name = 'formContentJson' THEN meta_value END) as formContentJson, "
+				+ "MAX(CASE WHEN meta_name = 'formTitle' THEN meta_value END) as formTitle "
 				+ "FROM forms_meta "
 				+ "WHERE form_id = ? "
-				+ "AND meta_name = 'formContentJson'";
+				+ "GROUP BY form_id";
 		
-		preparedStatement = connect.prepareStatement(sqla);
+		preparedStatement = connect.prepareStatement(sql);
 		preparedStatement.setString(1, formId);
 		ResultSet rsJsonForm = preparedStatement.executeQuery();
 		
 		while (rsJsonForm.next()) {
-			String jsonForm = rsJsonForm.getString("meta_value");
+			String jsonForm = rsJsonForm.getString("formContentJson");
+			String formTitle = rsJsonForm.getString("formTitle");
+			
 			statisticsStorage.setJsonForm(jsonForm);
+			statisticsStorage.setFormTitle(formTitle);
 		}
 	
-		this.close();
+		conClass.close();
 		return statisticsStorage;
-	}
-	
-	private Connection connect() throws Exception {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost/formular_manager?" + "user=root&password=root");			
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		return connect;
-	}
-	
-	// You need to close the resultSet
-	private void close() throws Exception {
-		try {
-			if (resultSet != null) {
-				resultSet.close();
-			}
-			
-			if (statement != null) {
-				statement.close();
-			}
-			
-			if (connect != null) {
-				connect.close();
-			}
-		} 
-		catch (Exception e) {
-			throw e;
-		}
 	}
 }

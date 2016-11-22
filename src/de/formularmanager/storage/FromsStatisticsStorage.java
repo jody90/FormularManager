@@ -9,6 +9,8 @@ public class FromsStatisticsStorage {
 	
 	private String jsonForm;
 
+	private String formTitle;
+
 	private Map<Integer, Map<String, String>> statisticsValue;
 
 	private Map<Integer, Map<String, String>> statisticsValueHelper = new HashMap<Integer, Map<String, String>>();
@@ -44,4 +46,11 @@ public class FromsStatisticsStorage {
 		this.jsonForm = jsonForm;
 	}
 	
+	public String getFormTitle() {
+		return formTitle;
+	}
+	
+	public void setFormTitle(String formTitle) {
+		this.formTitle = formTitle;
+	}
 }
