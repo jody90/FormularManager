@@ -19,6 +19,7 @@
 	<link href="css/formBuilder.css" rel="stylesheet">
 	<link href="css/list.css" rel="stylesheet">
 	<link href="css/public.css" rel="stylesheet">
+	<link href="css/chart.css" rel="stylesheet">
 	
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
