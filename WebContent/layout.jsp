@@ -7,10 +7,10 @@
 	
 	<title>Formular Manager</title>
 	
-	<link href="css/form-builder.css" rel="stylesheet">
-	<link href="css/form-render.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/form-builder.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/form-render.css" rel="stylesheet">
 	<link href="css/jquery.datetimepicker.min.css" rel="stylesheet">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/helperClasses.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="css/header.css" rel="stylesheet">
