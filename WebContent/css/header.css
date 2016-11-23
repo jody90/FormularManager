@@ -21,3 +21,12 @@
 	transform: translateY(50%);
 	display: inline-block;
 }
+
+.logout_link {
+/* 	color: #fff; */
+}
+
+.logout_link:hover {
+/* 	text-decoration: none; */
+/* 	color: #fff; */
+}

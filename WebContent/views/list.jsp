@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:useBean id="list" class="de.formularmanager.controller.ListController"></jsp:useBean>
+<jsp:useBean id="list" class="de.formularmanager.model.List"></jsp:useBean>
 
 <table class="table table-striped table-hover">
 	<tr>

@@ -1,12 +1,16 @@
 package de.formularmanager.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import de.formularmanager.model.User;
 
 @WebServlet("/IndexController")
 public class IndexController extends HttpServlet {
@@ -17,12 +21,30 @@ public class IndexController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+		User user = new User();
+
+		// liest alle Cookies in cookies ein
+		Cookie[] cookies = null;
+		cookies = request.getCookies();
 		
-		request.setAttribute("pageTitle", "Admin Panel");
-		request.setAttribute("view", "index");
+		// prueft ob User angemeldet ist
+		String username = user.isLoggedIn(cookies);
 		
-		getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);
+		if (username != null) {
+			
+			Map<String, String> userInfo = user.getUserInfo();
+			
+			request.setAttribute("firstname", userInfo.get("firstname"));
+			request.setAttribute("pageTitle", "Admin Panel");
+			request.setAttribute("view", "index");
+			
+			getServletContext().getRequestDispatcher("/layout.jsp").forward(request, response);
+		}
+		else {
+			response.sendRedirect("/FormularManager/login");
+			return;
+		}
 
 	}
 

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -40,10 +41,19 @@
 	                <img src="images/sortimo-logo.png" title="sortimo" alt="sortimo logo" class="img-responsive">
 	            </a>
             </div>
-            <div class="col-xs-11 header-text">
+            <div class="col-xs-9 header-text">
                 <h1>
                     ${pageTitle}
                 </h1>
+            </div>
+            <div class="col-xs-2 text-right">
+     			<c:if test="${not empty firstname}">
+					Hallo ${firstname}<br>
+				
+					<a class="logout_link btn btn-default" href="${pageContext.request.contextPath}/login?action=logout" title="logout">
+						Logout
+					</a>
+		   		</c:if>
             </div>
         </div>
 		<jsp:include page="views/${view}.jsp"></jsp:include>

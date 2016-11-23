@@ -13,16 +13,18 @@ public class ListForms {
 	private Connection connect = null;
 	private PreparedStatement preparedStatement = null;
 	
-	public ArrayList<FormsListStorage> getFormsList() throws Exception {	
+	public ArrayList<FormsListStorage> getFormsList(String land) throws Exception {	
 		Connect conClass = new Connect();
 		connect = conClass.getConnection();
 
 		String sql = "SELECT * "
 				+ "FROM formular_manager.forms "
-				+ "WHERE delete_status != 1";
+				+ "WHERE delete_status != 1 "
+				+ "AND country = ?";
 		
 		preparedStatement = connect.prepareStatement(sql);
-		
+		preparedStatement.setString(1, land);
+
 		ResultSet rs = preparedStatement.executeQuery();
 		
 		ArrayList<FormsListStorage> results = new ArrayList<FormsListStorage>();		
