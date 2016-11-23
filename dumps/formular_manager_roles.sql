@@ -16,31 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `forms`
+-- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `forms`;
+DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `forms` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(60) NOT NULL,
-  `country` varchar(10) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `delete_status` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `name` varchar(80) NOT NULL,
+  `description` longtext,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='		';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `forms`
+-- Dumping data for table `roles`
 --
 
-LOCK TABLES `forms` WRITE;
-/*!40000 ALTER TABLE `forms` DISABLE KEYS */;
-INSERT INTO `forms` VALUES (1,'umfrage','DE','2016-11-21 10:33:14','2016-11-22 11:26:31',0),(2,'umfrage','DE','2016-11-21 13:24:03','2016-11-21 13:27:59',0),(3,'umfrage','DE','2016-11-21 13:35:05','2016-11-22 11:48:00',1),(4,'umfrage','DE','2016-11-21 13:38:31','2016-11-21 13:38:31',0),(5,'umfrage','DE','2016-11-22 11:51:36','2016-11-23 13:24:51',0),(6,'umfrage','DE','2016-11-22 14:03:06','2016-11-22 14:08:09',1),(7,'umfrage','DE','2016-11-22 14:09:40','2016-11-22 14:09:58',1),(8,'umfrage','GB','2016-11-23 07:31:31','2016-11-23 07:53:37',0);
-/*!40000 ALTER TABLE `forms` ENABLE KEYS */;
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'admin','Kann Admin Sachen machen'),(2,'super_admin','Gottgleiches Wesen (Für Entwickler gedacht)'),(3,'user','Ist der Standard User'),(4,'user_sekretariat','Standard User plus einige Spezielle Rechte');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
