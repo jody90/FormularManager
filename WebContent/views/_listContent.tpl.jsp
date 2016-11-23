@@ -3,21 +3,24 @@
 	    	${item.getId()}
     </td>
 	<td class="align-middle">
-		<a href="${pageContext.request.contextPath}/public?country=DE&form_id=${item.getId()}">
+		<a href="${pageContext.request.contextPath}/public?country=${item.getCountry()}&form_id=${item.getId()}">
 	    	${item.getFormMeta()["formTitle"]}
 		</a>
     </td>
 	<td class="align-middle">
     	${item.getType()}
     </td>
+    <td>
+    	<img src="${pageContext.request.contextPath}/images/${item.getCountry()}.png" alt="country_flag" title="${item.getCountry()}" width="25">
+    </td>
 	<td class="align-middle text-right">
-    	<a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=edit&country=DE&form_id=${item.getId()}">
+    	<a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=edit&country=${item.getCountry()}&form_id=${item.getId()}">
     		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
     	</a>
-	    <a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=delete&country=DE&form_id=${item.getId()}">
+	    <a class="list-option-link" href="${pageContext.request.contextPath}/edit?action=delete&country=${item.getCountry()}&form_id=${item.getId()}">
     		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
     	</a>
- 		<a class="list-option-link" href="${pageContext.request.contextPath}/statistics?country=DE&form_id=${item.getId()}">
+ 		<a class="list-option-link" href="${pageContext.request.contextPath}/statistics?country=${item.getCountry()}&form_id=${item.getId()}">
     		<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
     	</a>
     	

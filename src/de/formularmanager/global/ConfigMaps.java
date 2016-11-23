@@ -8,7 +8,8 @@ public class ConfigMaps {
 	public Map<String, String> getcountrys() {
 		Map<String, String> countries = new HashMap<String, String>();
 		countries.put("DE", "Deutschland");
-		countries.put("AT", "England");
+		countries.put("AT", "Östereich");
+		countries.put("GB", "England");
 		countries.put("FR", "Frankreich");
 		countries.put("CH", "Schweiz");
 		return countries;

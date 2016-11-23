@@ -59,7 +59,9 @@ public class ListController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("page_title", "Übersicht");
+		String pageTitle = filter != "false" ? "Übersicht Aktiv" : "Übersicht";
+		
+		request.setAttribute("pageTitle", pageTitle);
 		request.setAttribute("filter", filter);
 		request.setAttribute("view", "list");
 		

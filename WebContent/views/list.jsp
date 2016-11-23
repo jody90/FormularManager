@@ -12,6 +12,9 @@
 		<th>
 			Typ
 		</th>
+		<th>
+			Land
+		</th>
 		<th class="text-right">
 			Optionen			
 		</th>

@@ -58,12 +58,12 @@ public class FormEdit extends Connect{
 
 		String sql = "UPDATE "
 				+ "formular_manager.forms "
-				+ "SET type = ?, "
-				+ "modified_at = default "
+				+ "SET type = ?, country = ?, modified_at = default "
 				+ "WHERE id = " + formId + "";
 		
 		preparedStatement = connect.prepareStatement(sql);
 		preparedStatement.setString(1, globalData.get("formType"));
+		preparedStatement.setString(2, globalData.get("country"));
 		preparedStatement.executeUpdate();
 		
 		sql = "INSERT INTO "
