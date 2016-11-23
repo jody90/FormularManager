@@ -20,7 +20,7 @@ public class LoginController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pageTitle", "Login");
+		request.setAttribute("pageTitle", "Formular Manager");
 		request.setAttribute("view", "login");
 		
 		// liest alle Cookies in cookies ein

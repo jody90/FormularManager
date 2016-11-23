@@ -10,7 +10,7 @@
 	<td class="align-middle">
     	${item.getType()}
     </td>
-    <td>
+    <td class="align-middle">
     	<img src="${pageContext.request.contextPath}/images/${item.getCountry()}.png" alt="country_flag" title="${item.getCountry()}" width="25">
     </td>
 	<td class="align-middle text-right">

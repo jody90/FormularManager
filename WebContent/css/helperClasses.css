@@ -34,6 +34,10 @@
 	padding: 10px;
 }
 
+.padding-top-xs {
+	padding-top: 5px;
+}
+
 .flexbox {
     display: -ms-flexbox;
 	display: -webkit-flex;
