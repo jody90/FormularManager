@@ -20,7 +20,13 @@ public class ListForms {
 		String sql = "SELECT * "
 				+ "FROM formular_manager.forms "
 				+ "WHERE delete_status != 1 "
-				+ "AND country = ?";
+				+ "AND country LIKE ?";
+				
+		if (land.equals("ALL")) {
+			land = "%";
+		}
+		
+		System.out.println(sql);
 		
 		preparedStatement = connect.prepareStatement(sql);
 		preparedStatement.setString(1, land);

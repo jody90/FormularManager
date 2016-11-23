@@ -36,17 +36,17 @@
 <body>
     <div class="container-fluid">
 		<div class="pageheader row margin-bottom-md text-center page_header">
-            <div class="col-xs-1 header-logo">
+            <div class="col-xs-4 col-sm-3 col-md-1 header-logo">
 	            <a href="${pageContext.request.contextPath}/index">
 	                <img src="images/sortimo-logo.png" title="sortimo" alt="sortimo logo" class="img-responsive">
 	            </a>
             </div>
-            <div class="col-xs-9 header-text">
+            <div class="col-xs-8 col-md-9 header-text">
                 <h1>
                     ${pageTitle}
                 </h1>
             </div>
-            <div class="col-xs-2 text-right">
+            <div class="col-xs-12 col-sm-2 text-right">
      			<c:if test="${not empty firstname}">
 					Hallo ${firstname}<br>
 				

@@ -42,7 +42,7 @@ public class ListController extends HttpServlet {
 			ListForms Forms = new ListForms();
 			
 			String filter = request.getParameter("filter") != null ? request.getParameter("filter") : "false";
-			String country = request.getParameter("country") != null ? request.getParameter("country") : "de";
+			String country = request.getParameter("country") != null ? request.getParameter("country") : "DE";
 			
 			try {
 				ArrayList<FormsListStorage> formsList = Forms.getFormsList(country);		
@@ -54,6 +54,7 @@ public class ListController extends HttpServlet {
 			String pageTitle = filter != "false" ? "Übersicht Aktiv" : "Übersicht";
 			
 			request.setAttribute("pageTitle", pageTitle);
+			request.setAttribute("country", country);
 			request.setAttribute("filter", filter);
 			request.setAttribute("view", "list");
 			

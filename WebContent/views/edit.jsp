@@ -25,7 +25,7 @@
 			</div>
 
 			<div class="margin-bottom-md">
-				<label for="country">Sprache</label>
+				<label for="country">Land</label>
 				<select name="country" class="form-control">
 					<c:forEach items="${conf.getcountrys()}" var="land">
 						<option value="${land.key}" ${country == land.key ? 'selected' : ''}>
