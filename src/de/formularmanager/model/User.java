@@ -80,7 +80,7 @@ public class User {
 		response.addCookie(userCookie);
 	}
 	
-	private String md5Hash(String password) throws NoSuchAlgorithmException {
+	public String md5Hash(String password) throws NoSuchAlgorithmException {
 		MessageDigest m = MessageDigest.getInstance("MD5");
 		m.reset();
 		m.update(password.getBytes());

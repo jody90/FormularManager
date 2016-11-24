@@ -10,27 +10,30 @@
 	
 	<link href="${pageContext.request.contextPath}/css/form-builder.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/form-render.css" rel="stylesheet">
-	<link href="css/jquery.datetimepicker.min.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/jquery.datetimepicker.min.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/helperClasses.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
-	<link href="css/header.css" rel="stylesheet">
-	<link href="css/menu.css" rel="stylesheet">
-	<link href="css/responsiveTables.css" rel="stylesheet">
-	<link href="css/formBuilder.css" rel="stylesheet">
-	<link href="css/list.css" rel="stylesheet">
-	<link href="css/public.css" rel="stylesheet">
-	<link href="css/chart.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/helperClasses.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/menu.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/responsiveTables.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/formBuilder.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/list.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/public.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/chart.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/settings.css" rel="stylesheet">
 	
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
-	<script src="js/jquery-3.1.1.min.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
-	<script src="js/form-builder.min.js"></script>
-	<script src="js/form-render.min.js"></script>
-	<script src="js/formBuilderFunctions.js"></script>
-	<script src="js/jquery.datetimepicker.full.min.js"></script>
-	<script src="js/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/form-builder.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/form-render.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/formBuilderFunctions.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.full.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/js/settings.js"></script>
 
 </head>
 <body>

@@ -16,32 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `rights`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `rights`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `lastname` varchar(45) NOT NULL,
-  `firstname` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `roles` varchar(45) DEFAULT NULL,
-  `rights` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `rights` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `description` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `rights`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('jlerch','c4ca4238a0b923820dcc509a6f75849b','Lerch','Johannes','jlerch@sortimo.de','[\'super_admin\']',NULL),('ttest','','Test','Test','test@test.de','',NULL);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `rights` WRITE;
+/*!40000 ALTER TABLE `rights` DISABLE KEYS */;
+INSERT INTO `rights` VALUES (1,'new_form','Ein neues Formular anlegen'),(2,'new_umfrage','Ein Formular vom Typ Umfrage anlegen'),(3,'new_abstimmung','Ein Formular vom Typ Antrag anlegen'),(4,'view_list','Übersicht Liste anzeigen');
+/*!40000 ALTER TABLE `rights` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

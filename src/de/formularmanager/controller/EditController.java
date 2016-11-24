@@ -39,7 +39,6 @@ public class EditController extends HttpServlet {
 			Map<String, String> userInfo = user.getUserInfo();
 			
 			request.setAttribute("firstname", userInfo.get("firstname"));
-	
 			
 			FormEdit form = new FormEdit();
 			

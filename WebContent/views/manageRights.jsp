@@ -1,0 +1,1 @@
+<h1>Manage Rights View</h1>

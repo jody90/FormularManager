@@ -19,37 +19,30 @@
         </span>
     </a>
     
-	<a class="navi-item-box" href="${pageContext.request.contextPath}/settings">
+	<a class="navi-item-box" href="${pageContext.request.contextPath}/settings?action=manageUsers">
         <span class="navi-item-text">
-            <span class="glyphicon glyphicon-cog navi-item-icon" aria-hidden="true"></span><br>
-            Einstellungen
+            <span class="glyphicon glyphicon-user navi-item-icon" aria-hidden="true"></span><br>
+            Benutzer verwalten
         </span>
     </a>
     
-   	<a class="navi-item-box" href="${pageContext.request.contextPath}/index">
+   	<a class="navi-item-box" href="${pageContext.request.contextPath}/settings?action=manageRoles">
         <span class="navi-item-text">
-            <span class="glyphicon glyphicon-home navi-item-icon" aria-hidden="true"></span><br>
-            Dummy
+            <span class="glyphicon glyphicon-tasks navi-item-icon" aria-hidden="true"></span><br>
+            Rollen verwalten
         </span>
     </a>
     
-     <a class="navi-item-box" href="${pageContext.request.contextPath}/index">
+     <a class="navi-item-box" href="${pageContext.request.contextPath}/settings?action=manageRights">
         <span class="navi-item-text">
-            <span class="glyphicon glyphicon-star navi-item-icon" aria-hidden="true"></span><br>
-            Dummy
+            <span class="glyphicon glyphicon-asterisk navi-item-icon" aria-hidden="true"></span><br>
+            Rechte verwalten
         </span>
     </a>
     
     <a class="navi-item-box" href="${pageContext.request.contextPath}/index">
         <span class="navi-item-text">
             <span class="glyphicon glyphicon-ok navi-item-icon" aria-hidden="true"></span><br>
-            Dummy
-        </span>
-    </a>
-    
-    <a class="navi-item-box" href="${pageContext.request.contextPath}/index">
-        <span class="navi-item-text">
-            <span class="glyphicon glyphicon-glass navi-item-icon" aria-hidden="true"></span><br>
             Dummy
         </span>
     </a>

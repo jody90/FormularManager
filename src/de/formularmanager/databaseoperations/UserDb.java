@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.formularmanager.model.User;
+
 public class UserDb {
 	private Connection connect = null;
 	private PreparedStatement preparedStatement = null;
@@ -58,6 +60,40 @@ public class UserDb {
 		}
 		
 		return userInfo;
+	}
+	
+	public void addAccount(Map<String, String> userData) throws Exception {
+		User user = new User();
+		
+		Connect conClass = new Connect();
+		connect = conClass.getConnection();
+
+		String sql = "INSERT INTO "
+				+ "formular_manager.users "
+				+ "values (?, ?, ?, ?, ?, ?, ?) "
+				+ "ON DUPLICATE KEY UPDATE "
+				+ "lastname = ?, firstname = ?, email = ?, roles = ?, rights = ?";
+			
+		
+			String password = userData.get("password") == null ? user.md5Hash("1") : user.md5Hash(userData.get("password"));
+			String rights = userData.get("rights").isEmpty() ? null : userData.get("rights");
+			String roles = userData.get("roles").isEmpty() ? null : userData.get("roles");
+		
+			preparedStatement = connect.prepareStatement(sql);
+			preparedStatement.setString(1, userData.get("username"));
+			preparedStatement.setString(2, password);
+			preparedStatement.setString(3, userData.get("lastname"));
+			preparedStatement.setString(4, userData.get("firstname"));
+			preparedStatement.setString(5, userData.get("email"));
+			preparedStatement.setString(6, roles);
+			preparedStatement.setString(7, rights);
+			preparedStatement.setString(8, userData.get("lastname"));
+			preparedStatement.setString(9, userData.get("firstname"));
+			preparedStatement.setString(10, userData.get("email"));
+			preparedStatement.setString(11, roles);
+			preparedStatement.setString(12, rights);
+			
+			preparedStatement.executeUpdate();
 	}
 
 
