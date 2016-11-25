@@ -22,65 +22,50 @@ $(document).ready(function() {
 	        	var roles = obj[1];
 	        	var rights = obj[2];
 	        	
-	        	var orderedRights = [];
-	        	
-	        	for (var i = 0; i < rights.length; i++) {
-	        		orderedRights[rights[i].id] = rights[i];
-	        	}
-	        	
-	        	var orderedRoles = [];
-	        	
-	        	for (var i = 0; i < roles.length; i++) {
-	        		orderedRoles[roles[i].id] = roles[i];
-	        	}
+	        	var orderedRoles = orderArray(roles);
+	        	var orderedRights = orderArray(rights);
 	        	
 	        	var userRights = userData.rights != undefined ? JSON.parse(userData.rights) : [];
 	        	var userRoles = userData.roles != undefined ? JSON.parse(userData.roles) : [];
-	        		      
-	        	// Daten fuer moegliche Rollen aufbereiten
-	        	var roleListItemTemplate = '<li data-id="####roleId####" class="list-group-item">####roleName#### <span data-type="role" data-action="add" class="action icon_right glyphicon glyphicon-plus" aria-hidden="true"></span></li>'
-	        	var rolesListHtml = "";
+
+	        	var typeSpecific = {};
+	        	typeSpecific.right = userRights;
+	        	typeSpecific.role = userRoles;
+	        	
+	        	// Erzeugt Listen Elemente fuer Rechte und Rollen
+	        	function createListElement(data, type, action, specificData) {
+	        		var icon = action == "add" ? "plus" : "minus";
+	        		var specificData = specificData || false;
+	        		var typeSpecificArray = typeSpecific[type];
 	        		
-	        	for (var i = 0; i < roles.length; i++) {
-	        		if (userRoles.indexOf(roles[i].id) == -1) {
-	        			var listItem = roleListItemTemplate.replace("####roleName####", roles[i].name);
-	        			listItem = listItem.replace("####roleId####", roles[i].id);
-	        			rolesListHtml += listItem;
+	        		var listItemTemplate = '<li data-id="####id####" class="list-group-item">####name#### <span data-type="'+type+'" data-action="'+action+'" class="action icon_right glyphicon glyphicon-'+icon+'" aria-hidden="true"></span></li>'
+	        		var listHtml = "";
+	        		
+	        		for (var i = 0; i < data.length; i++) {
+	        			var elementData = specificData != false ? specificData[data[i]] : data[i];
+	        			if (!specificData) {
+	    	        		if (typeSpecificArray.indexOf(data[i].id) == -1) {
+	    	        			var listItem = listItemTemplate.replace("####name####", data[i].name);
+	    	        			listItem = listItem.replace("####id####", data[i].id);
+	    	        			listHtml += listItem;
+	    	        		}
+	        			}
+	        			else {
+		        			var listItem = listItemTemplate.replace("####name####", elementData.name);
+		        			listItem = listItem.replace("####id####", elementData.id);
+		        			listHtml += listItem;
+	        			}
 	        		}
+	        		return listHtml;
 	        	}
 	        	
-	        	// Daten fuer moegliche Rechte aufbereiten	        	
-	        	var rightListItemTemplate = '<li data-id="####rightId####" class="list-group-item">####rightName#### <span data-type="right" data-action="add" class="action icon_right glyphicon glyphicon-plus" aria-hidden="true"></span></li>'
-	        	var rightsListHtml = "";
-	        		
-	        	for (var i = 0; i < rights.length; i++) {
-	        		if (userRights.indexOf(rights[i].id) == -1) {
-	        			var listItem = rightListItemTemplate.replace("####rightName####", rights[i].name);
-	        			listItem = listItem.replace("####rightId####", rights[i].id);
-	        			rightsListHtml += listItem;
-	        		}
-	        	}
+	        	// Templatedaten fuer Rechte und Rollen generieren
+	        	var userRightsListHtml = createListElement(userRights, "right", "remove", orderedRights);
+	        	var userRolesListHtml = createListElement(userRoles, "role", "remove", orderedRoles);
+	        	var rightsListHtml = createListElement(rights, "right", "add");
+	        	var rolesListHtml = createListElement(roles, "role", "add");
 
-	        	// Daten fuer Rollen aufbereiten	        	
-	        	var userRoleListItemTemplate = '<li data-id="####roleId####" class="list-group-item">####roleName#### <span data-type="role" data-action="remove" class="action icon_right glyphicon glyphicon-minus" aria-hidden="true"></span></li>'
-	        	var userRolesListHtml = "";
-	        		
-	        	for (var i = 0; i < userRoles.length; i++) {
-        			var listItem = userRoleListItemTemplate.replace("####roleName####", orderedRoles[userRoles[i]].name);
-        			listItem = listItem.replace("####roleId####", orderedRoles[userRoles[i]].id);
-        			userRolesListHtml += listItem;
-	        	}
-
-	        	// Daten fuer Rechte aufbereiten	        	
-	        	var userRightListItemTemplate = '<li data-id="####rightId####" class="list-group-item">####rightName#### <span data-type="right" data-action="remove" class="action icon_right glyphicon glyphicon-minus" aria-hidden="true"></span></li>'
-	        	var userRightsListHtml = "";
-	        		
-	        	for (var i = 0; i < userRights.length; i++) {
-        			var listItem = userRightListItemTemplate.replace("####rightName####", orderedRights[userRights[i]].name);
-        			listItem = listItem.replace("####rightId####", orderedRights[userRights[i]].id);
-        			userRightsListHtml += listItem;
-	        	}
-	        	
+	        	// Platzhalter aus Template ersetzen
 	        	template = template.replace("####username####", userData.username);
 	        	template = template.replace("####firstname####", userData.firstname);
 	        	template = template.replace("####lastname####", userData.lastname);
@@ -89,9 +74,10 @@ $(document).ready(function() {
 	        	template = template.replace("####possibleRights####", rightsListHtml);
 	        	template = template.replace("####currentRoles####", userRolesListHtml);
 	        	template = template.replace("####currentRights####", userRightsListHtml);
-	        	
+
 	        	$(body).html(template);
 	        	
+	        	// Aktionen um Rechte und Rollen hinzuzufuegen und zu entfernen
 	        	$(".list-group").on("click", ".action", function() {
 	        		var action = $(this).attr("data-action");
 	        		var type = $(this).attr("data-type");
@@ -149,4 +135,13 @@ $(document).ready(function() {
 		$('#editUserModal').modal('hide');
 	})
 	
+	
 })
+
+function orderArray(data) {
+	var ordered = [];
+	for (var i = 0; i < data.length; i++) {
+		ordered[data[i].id] = data[i];
+	}
+	return ordered;
+}
