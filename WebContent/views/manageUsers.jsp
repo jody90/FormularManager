@@ -9,7 +9,7 @@
 	</button>
 </form>
 
-<button class="btn btn-primary margin-bottom-lg" data-toggle="modal" data-target="#newUserModal" id="openNewUserModal">
+<button class="btn btn-primary margin-bottom-lg" data-toggle="modal" data-target="#editUserModal" id="openNewUserModal">
 	Neuen Benutzer anlegen
 	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button>
@@ -47,9 +47,12 @@
 				${user["email"]}
 			</td>
 			<td>
-		    	<div class="user-edit-link" data-toggle="modal" data-target="#editUserModal" data-username="${user['username']}" id="openEditUserModal">
+		    	<span class="user-edit-link" data-toggle="modal" data-target="#editUserModal" data-username="${user['username']}" id="openEditUserModal">
 		    		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-		    	</div>		    	
+		    	</span>		    	
+ 			    <span class="user-delete-link" data-toggle="modal" data-target="#deleteUserModal" data-username="${user['username']}" id="openDeleteUserModal">
+		    		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		    	</span>		    
 			</td>
 		</tr>
 	</c:forEach>
@@ -76,7 +79,7 @@
 					<div class="row margin-bottom-md">
 						<div class="col-xs-6">
 							<label for="username">Benutzername</label>
-							<input class="form-control" type="text" name="username" value="####username####" readonly>
+							<input class="form-control" type="text" name="username" value="####username####" placeholder="username">
 						</div>
 						<div class="col-xs-6">
 							<label for="email">Email</label>
@@ -159,12 +162,9 @@
 	</div>
 </div>
 
-
-
-
 <!-- New User Modal -->
-<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog"
-	aria-labelledby="newUserModalLabel">
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog"
+	aria-labelledby="deleteUserModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -172,16 +172,20 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="editUserModalLabel">Neuer Benutzer</h4>
+				<h4 class="modal-title" id="deleteUserModalLabel">Benutzer löschen</h4>
 			</div>
 			<div class="modal-body">
-			
-				
-			
+				<form method="post" action="settings" id="deleteUserForm">
+					<input type="hidden" name="action" value="deleteUser">
+					<input type="hidden" name="username" value="####username####">
+					<p>
+						Bist du dir sicher, dass du <strong>####username####</strong> löschen willst?
+					</p>
+				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-				<button type="button" class="btn btn-primary" id="submitUserCreate">Benutzer anlegen</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Nein</button>
+				<button type="button" class="btn btn-danger" id="submitUserDelete">Ja</button>
 			</div>
 		</div>
 	</div>

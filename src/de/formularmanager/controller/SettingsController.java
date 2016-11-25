@@ -45,15 +45,15 @@ public class SettingsController extends HttpServlet {
 			request.setAttribute("firstname", userInfo.get("firstname"));
 			SettingsDb settingsDb = new SettingsDb();
 			
+			System.out.println(action);
+			
 			switch (action) {
 				case "manageUsers" :
-					if (editUser != null) {
-						try {
-							List<Map<String, String>> usersToEdit = settingsDb.getUsers(editUser);
-							request.setAttribute("users", usersToEdit);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+					try {
+						List<Map<String, String>> usersToEdit = settingsDb.getUsers(editUser);
+						request.setAttribute("users", usersToEdit);
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 					request.setAttribute("view", "manageUsers");
 					request.setAttribute("pageTitle", "Benutzer verwalten");
@@ -94,19 +94,33 @@ public class SettingsController extends HttpServlet {
 					
 					while (paramNames.hasMoreElements()) {
 						String paramName = (String) paramNames.nextElement();
+						String paramValue = request.getParameter(paramName).isEmpty() ? null : request.getParameter(paramName);
 						if (!paramName.equals("action")) {
-							updateData.put(paramName, request.getParameter(paramName));
+							updateData.put(paramName, paramValue);
 						}
 					}
 					
 					try {
 						userDb.addAccount(updateData);
+						response.sendRedirect("/FormularManager/settings?action=manageUsers");
+						return;
+					} catch (Exception e) {
+//						e.printStackTrace();
+						response.sendRedirect("/FormularManager/error");
+						return;
+					}
+				case "deleteUser" :
+					UserDb userDbConnection = new UserDb();
+					String deleteUser = request.getParameter("username");					
+					
+					try {
+						userDbConnection.deleteAccount(deleteUser);
+						response.sendRedirect("/FormularManager/settings?action=manageUsers");
+						return;
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					
-					response.sendRedirect("/FormularManager/settings?action=manageUsers");
-					return;
+				break;					
 				case "manageRoles" :
 					request.setAttribute("view", "manageRoles");
 					request.setAttribute("pageTitle", "Rollen verwalten");				

@@ -74,7 +74,6 @@ public class UserDb {
 				+ "ON DUPLICATE KEY UPDATE "
 				+ "lastname = ?, firstname = ?, email = ?, roles = ?, rights = ?";
 			
-		
 			String password = userData.get("password") == null ? user.md5Hash("1") : user.md5Hash(userData.get("password"));
 			String rights = userData.get("rights").isEmpty() ? null : userData.get("rights");
 			String roles = userData.get("roles").isEmpty() ? null : userData.get("roles");
@@ -95,8 +94,17 @@ public class UserDb {
 			
 			preparedStatement.executeUpdate();
 	}
-
-
-
 	
+	public void deleteAccount(String deleteUser) throws Exception {
+		Connect conClass = new Connect();
+		connect = conClass.getConnection();
+		
+		String sql = "DELETE "
+				+ "FROM users "
+				+ "WHERE username = ?";
+		
+		preparedStatement = connect.prepareStatement(sql);
+		preparedStatement.setString(1, deleteUser);
+		preparedStatement.executeUpdate();
+	}
 }

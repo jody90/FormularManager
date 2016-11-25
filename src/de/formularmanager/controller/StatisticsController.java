@@ -66,12 +66,14 @@ public class StatisticsController extends HttpServlet {
 			
 			Gson gson = new Gson();
 			String json = gson.toJson(statisticsData);
-	
+			
+			System.out.println(action);
+
 			if (action.equals("getStatistics")) {
 				response.setContentType("text/plain");
-			    response.setCharacterEncoding("UTF-8");
-			    response.getWriter().write(json);
-			    return;
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(json);
+				return;
 			}
 			else {
 				request.setAttribute("statistics", statistics);

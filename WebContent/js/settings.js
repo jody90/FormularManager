@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	var templateBckup;
+	var templateDeleteBackup;
 	
 	$('#editUserModal').on('show.bs.modal', function (e) {
 		var toggledButton = $(e.relatedTarget);
@@ -64,12 +65,17 @@ $(document).ready(function() {
 	        	var userRolesListHtml = createListElement(userRoles, "role", "remove", orderedRoles);
 	        	var rightsListHtml = createListElement(rights, "right", "add");
 	        	var rolesListHtml = createListElement(roles, "role", "add");
+	        	
+	        	var username = userData.username != undefined ? userData.username : "";
+	        	var firstame = userData.firstame != undefined ? userData.firstame : "";
+	        	var lastname = userData.lastname != undefined ? userData.lastname : "";
+	        	var email = userData.email != undefined ? userData.email : "";
 
 	        	// Platzhalter aus Template ersetzen
-	        	template = template.replace("####username####", userData.username);
-	        	template = template.replace("####firstname####", userData.firstname);
-	        	template = template.replace("####lastname####", userData.lastname);
-	        	template = template.replace("####email####", userData.email);
+	        	template = template.replace("####username####", username);
+	        	template = template.replace("####firstname####", firstame);
+	        	template = template.replace("####lastname####", lastname);
+	        	template = template.replace("####email####", email);
 	        	template = template.replace("####possibleRoles####", rolesListHtml);
 	        	template = template.replace("####possibleRights####", rightsListHtml);
 	        	template = template.replace("####currentRoles####", userRolesListHtml);
@@ -135,6 +141,29 @@ $(document).ready(function() {
 		$('#editUserModal').modal('hide');
 	})
 	
+	
+	$('#deleteUserModal').on('show.bs.modal', function (e) {
+		var toggledButton = $(e.relatedTarget);
+		var username = toggledButton.attr("data-username");
+		var body = $(this).find(".modal-body");
+		var template = $(body).html();
+		templateDeleteBackup = template;
+		
+		template = template.replace(/####username####/g, username);
+		
+		$(body).html(template);
+		
+	});
+	
+	$('#deleteUserModal').on('hide.bs.modal', function (e) {
+		var body = $(this).find(".modal-body");
+    	$(body).html(templateDeleteBackup);
+	})
+	
+	$("#submitUserDelete").on("click", function() {
+		$("#deleteUserForm").submit();
+		$('#deleteUserModal').modal('hide');
+	});
 	
 })
 
